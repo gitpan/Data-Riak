@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::Response;
 {
-  $Data::Riak::HTTP::Response::VERSION = '0.1';
+  $Data::Riak::HTTP::Response::VERSION = '0.2';
 }
 
 use strict;
@@ -28,13 +28,15 @@ has 'http_response' => (
     isa => 'HTTP::Response',
     required => 1,
     handles => {
-        code       => 'code',
-        value      => 'content',
-        is_success => 'is_success',
-        is_error   => 'is_error',
-        as_string  => 'as_string',
-        header     => 'header',
-        headers    => 'headers'
+        code        => 'code',
+        status_code => 'code',
+        message     => 'content',
+        value       => 'content',
+        is_success  => 'is_success',
+        is_error    => 'is_error',
+        as_string   => 'as_string',
+        header      => 'header',
+        headers     => 'headers'
     }
 );
 
@@ -61,7 +63,7 @@ Data::Riak::HTTP::Response
 
 =head1 VERSION
 
-version 0.1
+version 0.2
 
 =head1 AUTHOR
 

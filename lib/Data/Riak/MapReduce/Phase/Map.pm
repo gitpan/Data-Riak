@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce::Phase::Map;
 {
-  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.1';
+  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.2';
 }
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -32,6 +32,13 @@ has phase => (
 );
 
 
+has arg => (
+  is => 'ro',
+  isa => 'Str|HashRef',
+  predicate => 'has_arg'
+);
+
+
 has source => (
   is => 'ro',
   isa => 'Str',
@@ -48,11 +55,13 @@ sub pack {
   $href->{language} = $self->language;
   $href->{name} = $self->name if $self->has_name;
   $href->{source} = $self->source if $self->has_source;
+  $href->{arg} = $self->arg if $self->has_arg;
 
   $href;
 }
 
 1;
+
 __END__
 =pod
 
@@ -62,7 +71,7 @@ Data::Riak::MapReduce::Phase::Map - Map phase of a MapReduce
 
 =head1 VERSION
 
-version 0.1
+version 0.2
 
 =head1 SYNOPSIS
 
@@ -92,6 +101,10 @@ attribute is required.
 
 The name, used with built-in functions provided by Riak such as
 C<Riak.mapValues>.
+
+=head2 arg
+
+The static argument passed to the map function.
 
 =head2 source
 
