@@ -1,6 +1,6 @@
 package Data::Riak::Role::HasRiak;
 {
-  $Data::Riak::Role::HasRiak::VERSION = '0.2';
+  $Data::Riak::Role::HasRiak::VERSION = '0.3';
 }
 
 use strict;
@@ -30,7 +30,7 @@ Data::Riak::Role::HasRiak
 
 =head1 VERSION
 
-version 0.2
+version 0.3
 
 =head1 AUTHOR
 

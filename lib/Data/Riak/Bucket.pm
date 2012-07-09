@@ -1,6 +1,6 @@
 package Data::Riak::Bucket;
 {
-  $Data::Riak::Bucket::VERSION = '0.2';
+  $Data::Riak::Bucket::VERSION = '0.3';
 }
 
 use strict;
@@ -80,6 +80,8 @@ sub remove {
 sub get {
     my ($self, $key, $opts) = @_;
 
+    die("This method requires a key") unless($key);
+
     $opts ||= {};
 
     confess "This method does not support multipart/mixed responses"
@@ -107,6 +109,11 @@ sub list_keys {
     })->first;
 
     return decode_json( $result->value )->{'keys'};
+}
+
+sub count {
+    my $self = shift;
+    return scalar @{$self->list_keys} || 0;
 }
 
 sub remove_all {
@@ -188,7 +195,7 @@ Data::Riak::Bucket
 
 =head1 VERSION
 
-version 0.2
+version 0.3
 
 =head1 AUTHOR
 

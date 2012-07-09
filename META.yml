@@ -5,7 +5,6 @@ author:
 build_requires:
   Test::Fatal: 0
   Test::Memory::Cycle: 0
-  Try::Tiny: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
@@ -16,7 +15,6 @@ meta-spec:
   version: 1.4
 name: Data-Riak
 requires:
-  Data::Dump: 0
   Digest::MD5: 0
   HTTP::Headers: 0
   HTTP::Headers::ActionPack: 0
@@ -31,9 +29,10 @@ requires:
   Moose::Util::TypeConstraints: 0
   Sub::Exporter: 0
   Test::More: 0
+  Try::Tiny: 0
   URI: 0
   URL::Encode: 0
   overload: 0
   strict: 0
   warnings: 0
-version: 0.2
+version: 0.3

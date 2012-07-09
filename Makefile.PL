@@ -13,8 +13,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Andrew Nelson <anelson at cpan.org>",
   "BUILD_REQUIRES" => {
     "Test::Fatal" => 0,
-    "Test::Memory::Cycle" => 0,
-    "Try::Tiny" => 0
+    "Test::Memory::Cycle" => 0
   },
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => "6.30"
@@ -24,7 +23,6 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Data::Riak",
   "PREREQ_PM" => {
-    "Data::Dump" => 0,
     "Digest::MD5" => 0,
     "HTTP::Headers" => 0,
     "HTTP::Headers::ActionPack" => 0,
@@ -39,13 +37,14 @@ my %WriteMakefileArgs = (
     "Moose::Util::TypeConstraints" => 0,
     "Sub::Exporter" => 0,
     "Test::More" => 0,
+    "Try::Tiny" => 0,
     "URI" => 0,
     "URL::Encode" => 0,
     "overload" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.2",
+  "VERSION" => "0.3",
   "test" => {
     "TESTS" => "t/*.t t/buckets/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }
