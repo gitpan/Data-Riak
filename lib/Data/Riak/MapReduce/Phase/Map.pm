@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce::Phase::Map;
 {
-  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.3';
+  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.4';
 }
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -39,6 +39,20 @@ has arg => (
 );
 
 
+has module => (
+  is => 'ro',
+  isa => 'Str',
+  predicate => 'has_module'
+);
+
+
+has function => (
+  is => 'ro',
+  isa => 'Str',
+  predicate => 'has_function'
+);
+
+
 has source => (
   is => 'ro',
   isa => 'Str',
@@ -55,6 +69,8 @@ sub pack {
   $href->{language} = $self->language;
   $href->{name} = $self->name if $self->has_name;
   $href->{source} = $self->source if $self->has_source;
+  $href->{module} = $self->module if $self->has_module;
+  $href->{function} = $self->function if $self->has_function;
   $href->{arg} = $self->arg if $self->has_arg;
 
   $href;
@@ -71,7 +87,7 @@ Data::Riak::MapReduce::Phase::Map - Map phase of a MapReduce
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 
@@ -105,6 +121,14 @@ C<Riak.mapValues>.
 =head2 arg
 
 The static argument passed to the map function.
+
+=head2 module
+
+The module name, if you are using a riak built-in function.
+
+=head2 function
+
+The function name, if you are using a riak built-in function.
 
 =head2 source
 

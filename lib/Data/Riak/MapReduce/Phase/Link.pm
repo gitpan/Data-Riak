@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce::Phase::Link;
 {
-  $Data::Riak::MapReduce::Phase::Link::VERSION = '0.3';
+  $Data::Riak::MapReduce::Phase::Link::VERSION = '0.4';
 }
 use Moose;
 
@@ -53,7 +53,7 @@ Data::Riak::MapReduce::Phase::Link - Link phase of a MapReduce
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 SYNOPSIS
 

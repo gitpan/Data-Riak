@@ -1,6 +1,6 @@
-package Data::Riak::ResultSet;
+package Data::Riak::Util::ReduceCount;
 {
-  $Data::Riak::ResultSet::VERSION = '0.4';
+  $Data::Riak::Util::ReduceCount::VERSION = '0.4';
 }
 
 use strict;
@@ -8,17 +8,24 @@ use warnings;
 
 use Moose;
 
-has results => (
-    is => 'rw',
-    isa => 'ArrayRef[Data::Riak::Result]',
-    required => 1
+extends 'Data::Riak::MapReduce::Phase::Reduce';
+
+has '+language' => (
+    default => 'erlang'
 );
 
-sub first { (shift)->results->[0] }
+has '+function' => (
+    default => 'reduce_count_inputs'
+);
 
-sub all { @{ (shift)->results } }
+has '+arg' => (
+    default => 'filter_notfound'
+);
 
-__PACKAGE__->meta->make_immutable;
+has '+module' => (
+    default => 'riak_kv_mapreduce'
+);
+
 no Moose;
 
 1;
@@ -29,7 +36,7 @@ no Moose;
 
 =head1 NAME
 
-Data::Riak::ResultSet
+Data::Riak::Util::ReduceCount
 
 =head1 VERSION
 

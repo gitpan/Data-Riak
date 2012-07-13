@@ -1,6 +1,6 @@
 package Data::Riak::HTTP;
 {
-  $Data::Riak::HTTP::VERSION = '0.3';
+  $Data::Riak::HTTP::VERSION = '0.4';
 }
 # ABSTRACT: An interface to a Riak server, using its HTTP (REST) interface
 
@@ -71,7 +71,7 @@ sub send {
 sub _send {
     my ($self, $request) = @_;
 
-    my $uri = URI->new( sprintf('http://%s:%s/%s', $self->host, $self->port, $request->uri) );
+    my $uri = URI->new( sprintf('%s%s', $self->base_uri, $request->uri) );
 
     if ($request->has_query) {
         $uri->query_form($request->query);
@@ -118,7 +118,7 @@ Data::Riak::HTTP - An interface to a Riak server, using its HTTP (REST) interfac
 
 =head1 VERSION
 
-version 0.3
+version 0.4
 
 =head1 ATTRIBUTES
 

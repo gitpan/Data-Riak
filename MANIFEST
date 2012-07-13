@@ -20,6 +20,8 @@ lib/Data/Riak/Result.pm
 lib/Data/Riak/ResultSet.pm
 lib/Data/Riak/Role/HasRiak.pm
 lib/Data/Riak/Types.pm
+lib/Data/Riak/Util/MapCount.pm
+lib/Data/Riak/Util/ReduceCount.pm
 lib/Test/Data/Riak.pm
 t/000-load.t
 t/001-ping.t
