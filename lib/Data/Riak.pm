@@ -1,6 +1,6 @@
 package Data::Riak;
 {
-  $Data::Riak::VERSION = '0.4';
+  $Data::Riak::VERSION = '0.5';
 }
 # ABSTRACT: An interface to a Riak server.
 
@@ -114,7 +114,7 @@ Data::Riak - An interface to a Riak server.
 
 =head1 VERSION
 
-version 0.4
+version 0.5
 
 =head1 SYNOPSIS
 
@@ -148,16 +148,6 @@ version 0.4
 Data::Riak is a simple interface to a Riak server. It is not as complete as L<Net::Riak>,
 nor does it aim to be; instead, it attempts to make the simple operations very simple,
 while still allowing you to do complicated tasks.
-
-=method _buckets
-
-Get the list of buckets. This is NOT RECOMMENDED for production systems, as Riak
-has to essentially walk the entire database. Here purely as a tool for debugging
-and convenience.
-
-=method bucket ($name)
-
-Given a C<$name>, this will return a L<Data::Riak::Bucket> object for it.
 
 =head1 LINKWALKING
 
@@ -198,11 +188,17 @@ great potential, and it's the one thing we tried to make really simple with Data
 
 The bucket passed in on the riak object's linkwalk is the bucket the original target is in, and is used as a default if you only pass two options in the params lists.
 
-=begin :postlude
+=head1 METHODS
 
-=head1 AUTHOR
+=head2 _buckets
 
-Andrew Nelson, C<< <anelson at cpan.org> >>
+Get the list of buckets. This is NOT RECOMMENDED for production systems, as Riak
+has to essentially walk the entire database. Here purely as a tool for debugging
+and convenience.
+
+=head2 bucket ($name)
+
+Given a C<$name>, this will return a L<Data::Riak::Bucket> object for it.
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -219,8 +215,6 @@ Docs, docs, and more docs. The individual modules have a lot of functionality th
 This software is copyright (c) 2012 by Infinity Interactive, Inc..
 
 This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.
-
-=end :postlude
 
 =head1 AUTHOR
 

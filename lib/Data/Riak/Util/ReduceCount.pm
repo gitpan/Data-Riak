@@ -1,6 +1,6 @@
 package Data::Riak::Util::ReduceCount;
 {
-  $Data::Riak::Util::ReduceCount::VERSION = '0.4';
+  $Data::Riak::Util::ReduceCount::VERSION = '0.5';
 }
 
 use strict;
@@ -40,7 +40,7 @@ Data::Riak::Util::ReduceCount
 
 =head1 VERSION
 
-version 0.4
+version 0.5
 
 =head1 AUTHOR
 

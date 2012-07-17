@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce::Phase::Map;
 {
-  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.4';
+  $Data::Riak::MapReduce::Phase::Map::VERSION = '0.5';
 }
 use Moose;
 use Moose::Util::TypeConstraints;
@@ -87,7 +87,7 @@ Data::Riak::MapReduce::Phase::Map - Map phase of a MapReduce
 
 =head1 VERSION
 
-version 0.4
+version 0.5
 
 =head1 SYNOPSIS
 

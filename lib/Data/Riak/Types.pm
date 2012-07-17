@@ -1,6 +1,6 @@
 package Data::Riak::Types;
 {
-  $Data::Riak::Types::VERSION = '0.4';
+  $Data::Riak::Types::VERSION = '0.5';
 }
 
 use strict;
@@ -22,7 +22,7 @@ Data::Riak::Types
 
 =head1 VERSION
 
-version 0.4
+version 0.5
 
 =head1 AUTHOR
 
