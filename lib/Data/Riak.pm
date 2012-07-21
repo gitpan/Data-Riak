@@ -1,6 +1,6 @@
 package Data::Riak;
 {
-  $Data::Riak::VERSION = '0.5';
+  $Data::Riak::VERSION = '0.6';
 }
 # ABSTRACT: An interface to a Riak server.
 
@@ -114,7 +114,7 @@ Data::Riak - An interface to a Riak server.
 
 =head1 VERSION
 
-version 0.5
+version 0.6
 
 =head1 SYNOPSIS
 
@@ -142,6 +142,8 @@ version 0.5
 
     # The HTTP status code, 200 on a successful GET.
     my $code = $foo->code;
+
+    Most of the interesting methods are really in L<Data::Riak::Bucket>, so please read the documents there as well.
 
 =head1 DESCRIPTION
 

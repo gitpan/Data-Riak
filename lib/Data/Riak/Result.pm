@@ -1,6 +1,6 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '0.5';
+  $Data::Riak::Result::VERSION = '0.6';
 }
 
 use strict;
@@ -21,10 +21,7 @@ has bucket => (
     lazy => 1,
     default => sub {
         my $self = shift;
-        return Data::Riak::Bucket->new({
-            name => $self->bucket_name,
-            riak => $self->riak
-        });
+        $self->riak->bucket( $self->bucket_name )
     }
 );
 
@@ -145,7 +142,7 @@ Data::Riak::Result
 
 =head1 VERSION
 
-version 0.5
+version 0.6
 
 =head1 AUTHOR
 

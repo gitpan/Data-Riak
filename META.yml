@@ -35,4 +35,6 @@ requires:
   overload: 0
   strict: 0
   warnings: 0
-version: 0.5
+resources:
+  repository: http://github.com/holophrastic/data-riak.git
+version: 0.6
