@@ -1,6 +1,9 @@
-package Data::Riak::Util::MapCount;
+package Data::Riak::Util::ReduceCount;
 {
-  $Data::Riak::Util::MapCount::VERSION = '0.7';
+  $Data::Riak::Util::ReduceCount::VERSION = '0.7';
+}
+{
+  $Data::Riak::Util::ReduceCount::VERSION = '0.7';
 }
 
 use strict;
@@ -8,14 +11,14 @@ use warnings;
 
 use Moose;
 
-extends 'Data::Riak::MapReduce::Phase::Map';
+extends 'Data::Riak::MapReduce::Phase::Reduce';
 
 has '+language' => (
-	default => 'erlang'
+    default => 'erlang'
 );
 
 has '+function' => (
-    default => 'map_object_value'
+    default => 'reduce_count_inputs'
 );
 
 has '+arg' => (
@@ -36,7 +39,7 @@ no Moose;
 
 =head1 NAME
 
-Data::Riak::Util::MapCount
+Data::Riak::Util::ReduceCount
 
 =head1 VERSION
 

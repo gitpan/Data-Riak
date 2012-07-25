@@ -1,6 +1,6 @@
 package Data::Riak::Bucket;
 {
-  $Data::Riak::Bucket::VERSION = '0.6';
+  $Data::Riak::Bucket::VERSION = '0.7';
 }
 # ABSTRACT: A Data::Riak bucket, used for storing keys and values.
 
@@ -231,7 +231,7 @@ Data::Riak::Bucket - A Data::Riak bucket, used for storing keys and values.
 
 =head1 VERSION
 
-version 0.6
+version 0.7
 
 =head1 DESCRIPTION
 

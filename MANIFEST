@@ -22,6 +22,7 @@ lib/Data/Riak/Role/HasRiak.pm
 lib/Data/Riak/Types.pm
 lib/Data/Riak/Util/MapCount.pm
 lib/Data/Riak/Util/ReduceCount.pm
+lib/Data/Riak/Util/ReduceLimit.pm
 lib/Test/Data/Riak.pm
 t/000-load.t
 t/001-ping.t
@@ -35,6 +36,7 @@ t/buckets/100-memory-cycle.t
 t/link/000-load.t
 t/link/001-basic.t
 t/link/002-link-relations.t
+t/link/003-add-links.t
 t/mapreduce/000-load.t
 t/mapreduce/001-basic.t
 t/result/000-load.t
