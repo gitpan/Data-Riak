@@ -1,6 +1,6 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '0.7';
+  $Data::Riak::Result::VERSION = '0.8';
 }
 
 use strict;
@@ -133,7 +133,7 @@ sub add_link {
     my $links = $self->links;
     push @{$links}, $link;
     $self->links($links);
-    $self->save;
+    return $self;
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -151,7 +151,7 @@ Data::Riak::Result
 
 =head1 VERSION
 
-version 0.7
+version 0.8
 
 =head1 AUTHOR
 
