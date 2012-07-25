@@ -1,6 +1,6 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '0.8';
+  $Data::Riak::Result::VERSION = '0.9';
 }
 
 use strict;
@@ -136,6 +136,22 @@ sub add_link {
     return $self;
 }
 
+sub remove_link {
+    my ($self, $args) = @_;
+    my $key = $args->{key};
+    my $riaktag = $args->{riaktag};
+    my $links = $self->links;
+    my $new_links;
+    foreach my $link (@{$links}) {
+        next if($key && $link->has_key && ($key eq $link->key));
+        next if($riaktag && $link->has_riaktag && ($riaktag eq $link->riaktag));
+        push @{$new_links}, $link;
+    }
+    $self->links($new_links);
+    return $self;
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
@@ -151,7 +167,7 @@ Data::Riak::Result
 
 =head1 VERSION
 
-version 0.8
+version 0.9
 
 =head1 AUTHOR
 

@@ -37,6 +37,7 @@ t/link/000-load.t
 t/link/001-basic.t
 t/link/002-link-relations.t
 t/link/003-add-links.t
+t/link/004-remove-links.t
 t/mapreduce/000-load.t
 t/mapreduce/001-basic.t
 t/result/000-load.t
