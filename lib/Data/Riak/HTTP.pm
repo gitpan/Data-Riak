@@ -1,6 +1,6 @@
 package Data::Riak::HTTP;
 {
-  $Data::Riak::HTTP::VERSION = '0.10';
+  $Data::Riak::HTTP::VERSION = '1.0';
 }
 # ABSTRACT: An interface to a Riak server, using its HTTP (REST) interface
 
@@ -126,7 +126,7 @@ Data::Riak::HTTP - An interface to a Riak server, using its HTTP (REST) interfac
 
 =head1 VERSION
 
-version 0.10
+version 1.0
 
 =head1 ATTRIBUTES
 
