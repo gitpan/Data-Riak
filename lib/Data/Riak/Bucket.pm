@@ -1,6 +1,6 @@
 package Data::Riak::Bucket;
 {
-  $Data::Riak::Bucket::VERSION = '1.0';
+  $Data::Riak::Bucket::VERSION = '1.1';
 }
 # ABSTRACT: A Data::Riak bucket, used for storing keys and values.
 
@@ -203,7 +203,13 @@ sub search_index {
             })
         ]
     });
-    return [ sort map { $_->[1] } @{decode_json($search_mr->mapreduce->results->[0]->value)} ];
+    return $search_mr->mapreduce->results->[0]->value;
+}
+
+# returns JUST the list of keys. human readable, not designed for MapReduce inputs.
+sub pretty_search_index {
+    my ($self, $opts) = @_;
+    return [ sort map { $_->[1] } @{decode_json($self->search_index($opts))} ];    
 }
 
 sub props {
@@ -266,7 +272,7 @@ Data::Riak::Bucket - A Data::Riak bucket, used for storing keys and values.
 
 =head1 VERSION
 
-version 1.0
+version 1.1
 
 =head1 DESCRIPTION
 

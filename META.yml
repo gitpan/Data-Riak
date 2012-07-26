@@ -37,4 +37,4 @@ requires:
   warnings: 0
 resources:
   repository: http://github.com/holophrastic/data-riak.git
-version: 1.0
+version: 1.1

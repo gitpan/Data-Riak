@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce::Phase;
 {
-  $Data::Riak::MapReduce::Phase::VERSION = '1.0';
+  $Data::Riak::MapReduce::Phase::VERSION = '1.1';
 }
 
 use Moose::Role;
@@ -24,7 +24,7 @@ Data::Riak::MapReduce::Phase
 
 =head1 VERSION
 
-version 1.0
+version 1.1
 
 =head1 DESCRIPTION
 
