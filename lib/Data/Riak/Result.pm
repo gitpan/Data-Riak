@@ -1,6 +1,6 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '0.9';
+  $Data::Riak::Result::VERSION = '0.10';
 }
 
 use strict;
@@ -140,9 +140,11 @@ sub remove_link {
     my ($self, $args) = @_;
     my $key = $args->{key};
     my $riaktag = $args->{riaktag};
+    my $bucket = $args->{bucket};
     my $links = $self->links;
     my $new_links;
     foreach my $link (@{$links}) {
+        next if($bucket && ($bucket eq $link->bucket));
         next if($key && $link->has_key && ($key eq $link->key));
         next if($riaktag && $link->has_riaktag && ($riaktag eq $link->riaktag));
         push @{$new_links}, $link;
@@ -167,7 +169,7 @@ Data::Riak::Result
 
 =head1 VERSION
 
-version 0.9
+version 0.10
 
 =head1 AUTHOR
 

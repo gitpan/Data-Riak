@@ -1,6 +1,6 @@
 package Data::Riak::HTTP;
 {
-  $Data::Riak::HTTP::VERSION = '0.9';
+  $Data::Riak::HTTP::VERSION = '0.10';
 }
 # ABSTRACT: An interface to a Riak server, using its HTTP (REST) interface
 
@@ -86,6 +86,14 @@ sub _send {
         $headers->header('Link' => $request->links);
     }
 
+    if(my $indexes = $request->indexes) {
+        foreach my $index (@{$indexes}) {
+            my $field = $index->{field};
+            my $values = $index->{values};
+            $headers->header(":X-Riak-Index-$field" => $values);
+        }
+    }
+
     my $http_request = HTTP::Request->new(
         $request->method => $uri->as_string,
         $headers,
@@ -118,7 +126,7 @@ Data::Riak::HTTP - An interface to a Riak server, using its HTTP (REST) interfac
 
 =head1 VERSION
 
-version 0.9
+version 0.10
 
 =head1 ATTRIBUTES
 

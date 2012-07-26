@@ -33,6 +33,7 @@ t/buckets/002-simple-add.t
 t/buckets/010-simple-content-types.t
 t/buckets/020-aliases.t
 t/buckets/100-memory-cycle.t
+t/indexes/001-simple.t
 t/link/000-load.t
 t/link/001-basic.t
 t/link/002-link-relations.t

@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::Request;
 {
-  $Data::Riak::HTTP::Request::VERSION = '0.9';
+  $Data::Riak::HTTP::Request::VERSION = '0.10';
 }
 
 use strict;
@@ -43,6 +43,11 @@ has links => (
     }
 );
 
+has indexes => (
+    is => 'ro',
+    isa => 'ArrayRef[HashRef]'
+);
+
 has content_type => (
     is => 'ro',
     isa => 'Str',
@@ -70,7 +75,7 @@ Data::Riak::HTTP::Request
 
 =head1 VERSION
 
-version 0.9
+version 0.10
 
 =head1 AUTHOR
 

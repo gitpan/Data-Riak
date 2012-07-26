@@ -44,9 +44,9 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.9",
+  "VERSION" => "0.10",
   "test" => {
-    "TESTS" => "t/*.t t/buckets/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
+    "TESTS" => "t/*.t t/buckets/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }
 );
 

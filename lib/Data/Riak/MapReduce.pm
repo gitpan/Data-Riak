@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce;
 {
-  $Data::Riak::MapReduce::VERSION = '0.9';
+  $Data::Riak::MapReduce::VERSION = '0.10';
 }
 
 use strict;
@@ -20,7 +20,7 @@ with 'Data::Riak::Role::HasRiak';
 
 has inputs => (
     is => 'ro',
-    isa => 'ArrayRef | Str',
+    isa => 'ArrayRef | Str | HashRef',
     required => 1
 );
 
@@ -64,7 +64,7 @@ Data::Riak::MapReduce - A map/reduce query
 
 =head1 VERSION
 
-version 0.9
+version 0.10
 
 =head1 SYNOPSIS
 
