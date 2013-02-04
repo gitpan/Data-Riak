@@ -14,7 +14,7 @@ use Data::Riak::Bucket;
 
 skip_unless_riak;
 
-my $riak = Data::Riak->new(transport => Data::Riak::HTTP->new);
+my $riak = riak_transport;
 my $bucket_name = create_test_bucket_name;
 
 my $bucket = Data::Riak::Bucket->new({
@@ -38,7 +38,7 @@ $bucket->remove('foo');
 try {
     $bucket->get('foo');
 } catch {
-    is($_->code, "404", "Calling for a value that doesn't exist returns 404");
+    isa_ok $_, 'Data::Riak::Exception::ObjectNotFound';
 };
 
 memory_cycle_ok($obj, '... object is cycle free');

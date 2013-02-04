@@ -1,11 +1,12 @@
 package Data::Riak::MapReduce::Phase::Map;
 {
-  $Data::Riak::MapReduce::Phase::Map::VERSION = '1.1';
+  $Data::Riak::MapReduce::Phase::Map::VERSION = '1.2';
 }
 use Moose;
 use Moose::Util::TypeConstraints;
 
 use JSON::XS ();
+use namespace::autoclean;
 
 # ABSTRACT: Map phase of a MapReduce
 
@@ -79,6 +80,7 @@ sub pack {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -87,7 +89,7 @@ Data::Riak::MapReduce::Phase::Map - Map phase of a MapReduce
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
 =head1 SYNOPSIS
 
@@ -140,16 +142,25 @@ The source of the function used in this phase.
 
 Serialize this map phase.
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

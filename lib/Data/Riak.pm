@@ -1,65 +1,108 @@
 package Data::Riak;
 {
-  $Data::Riak::VERSION = '1.1';
+  $Data::Riak::VERSION = '1.2';
 }
 # ABSTRACT: An interface to a Riak server.
 
-use strict;
-use warnings;
-
 use Moose;
 
-use JSON::XS qw/decode_json/;
+use Class::Load 'load_class';
 
 use Data::Riak::Result;
+use Data::Riak::Result::Object;
 use Data::Riak::ResultSet;
 use Data::Riak::Bucket;
 use Data::Riak::MapReduce;
 
 use Data::Riak::HTTP;
 
+use namespace::autoclean;
+
 
 has transport => (
-    is => 'ro',
-    isa => 'Data::Riak::HTTP',
+    is       => 'ro',
+    does     => 'Data::Riak::Transport',
     required => 1,
-    handles => {
-        'ping' => 'ping',
+    handles  => {
         'base_uri' => 'base_uri'
     }
 );
 
-sub send_request {
-    my ($self, $request) = @_;
+has request_classes => (
+    traits  => ['Hash'],
+    is      => 'ro',
+    isa     => 'HashRef[Str]',
+    builder => '_build_request_classes',
+    handles => {
+        _available_request_classes => 'values',
+        request_class_for          => 'get',
+        has_request_class_for      => 'exists',
+    },
+);
 
+sub _build_request_classes {
+    return +{
+        (map {
+            ($_ => 'Data::Riak::Request::' . $_),
+        } qw(MapReduce Ping GetBucketProps StoreObject GetObject
+             ListBucketKeys RemoveObject LinkWalk Status ListBuckets
+             SetBucketProps)),
+    }
+}
+
+sub BUILD {
+    my ($self) = @_;
+
+    load_class $_
+        for $self->_available_request_classes;
+}
+
+sub _create_request {
+    my ($self, $args) = @_;
+
+    my %args_copy = %{ $args };
+    my $type = delete $args_copy{type};
+
+    confess sprintf 'Unknown request class %s', $type
+        unless $self->has_request_class_for($type);
+
+    return $self->request_class_for($type)->new(\%args_copy);
+}
+
+sub send_request {
+    my ($self, $request_data) = @_;
+
+    my $request = $self->_create_request($request_data);
     my $response = $self->transport->send($request);
 
-    if ($response->is_error) {
-        die $response;
+    my @results = $response->create_results($self, $request);
+    return unless @results;
+
+    if (@results == 1 && $results[0]->does('Data::Riak::Result::Single')) {
+        return $results[0];
     }
 
-    my @parts = @{ $response->parts };
+    return Data::Riak::ResultSet->new({ results => \@results });
+}
 
-    return unless @parts;
-    return Data::Riak::ResultSet->new({
-        results => [
-            map {
-                Data::Riak::Result->new({ riak => $self, http_message => $_ })
-            } @parts
-        ]
-    });
+
+sub ping {
+    my ($self) = @_;
+    return $self->send_request({ type => 'Ping' })->status_code == 200 ? 1 : 0;
+}
+
+
+sub status {
+    my ($self) = @_;
+    return $self->send_request({ type => 'Status' })->json_value;
 }
 
 
 sub _buckets {
     my $self = shift;
-    return decode_json(
-        $self->send_request({
-            method => 'GET',
-            uri => '/buckets',
-            query => { buckets => 'true' }
-        })->first->value
-    );
+    return $self->send_request({
+        type => 'ListBuckets',
+    })->json_value->{buckets};
 }
 
 
@@ -78,34 +121,25 @@ sub resolve_link {
 
 sub linkwalk {
     my ($self, $args) = @_;
-    my $object = $args->{object} || die 'You must have an object to linkwalk';
-    my $bucket = $args->{bucket} || die 'You must have a bucket for the original object to linkwalk';
-
-    my $request_str = "buckets/$bucket/keys/$object/";
-    my $params = $args->{params};
-
-    foreach my $depth (@$params) {
-        if(scalar @{$depth} == 2) {
-            unshift @{$depth}, $bucket;
-        }
-        my ($buck, $tag, $keep) = @{$depth};
-        $request_str .= "$buck,$tag,$keep/";
-    }
+    my $object = $args->{object} || confess 'You must have an object to linkwalk';
+    my $bucket = $args->{bucket} || confess 'You must have a bucket for the original object to linkwalk';
 
     return $self->send_request({
-        method => 'GET',
-        uri => $request_str
+        type => 'LinkWalk',
+        bucket_name => $bucket,
+        key => $object,
+        params => $args->{params},
     });
 }
 
 
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -114,7 +148,7 @@ Data::Riak - An interface to a Riak server.
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
 =head1 SYNOPSIS
 
@@ -141,22 +175,24 @@ version 1.1
     my $value = $foo->value;
 
     # The HTTP status code, 200 on a successful GET.
-    my $code = $foo->code;
+    my $code = $foo->status_code;
 
-    Most of the interesting methods are really in L<Data::Riak::Bucket>, so please read the documents there as well.
+Most of the interesting methods are really in L<Data::Riak::Bucket>, so please
+read the documents there as well.
 
 =head1 DESCRIPTION
 
-Data::Riak is a simple interface to a Riak server. It is not as complete as L<Net::Riak>,
-nor does it aim to be; instead, it attempts to make the simple operations very simple,
-while still allowing you to do complicated tasks.
+Data::Riak is a simple interface to a Riak server. It is not as complete as
+L<Net::Riak>, nor does it aim to be; instead, it attempts to make the simple
+operations very simple, while still allowing you to do complicated tasks.
 
 =head1 LINKWALKING
 
 One of Riak's notable features is the ability to easily "linkwalk", or traverse
-relationships between objects to return relevant resultsets. The most obvious use
-of this is "Show me all of the friends of people Bob is friends with", but it has
-great potential, and it's the one thing we tried to make really simple with Data::Riak.
+relationships between objects to return relevant resultsets. The most obvious
+use of this is "Show me all of the friends of people Bob is friends with", but
+it has great potential, and it's the one thing we tried to make really simple
+with Data::Riak.
 
     # Add bar to the bucket, and list foo as a buddy.
     $bucket->add('bar', 'value of bar', {
@@ -178,8 +214,11 @@ great potential, and it's the one thing we tried to make really simple with Data
     # Get everyone in my_bucket who foo thinks is not a buddy.
     $walk_results = $bucket->linkwalk('foo', [ [ 'not a buddy', 1 ] ]);
 
-    # Get everyone in my_bucket who baz thinks is a buddy of baz, get the people they list as not a buddy, and only return those.
-    $more_walk_results = $bucket->linkwalk('baz', [ [ 'buddy', 0 ], [ 'not a buddy', 1 ] ]);
+    # Get everyone in my_bucket who baz thinks is a buddy of baz, get the people
+    # they list as not a buddy, and only return those.
+    $more_walk_results = $bucket->linkwalk(
+      'baz', [ [ 'buddy', 0 ], [ 'not a buddy', 1 ] ],
+    );
 
     # You can also linkwalk outside of a bucket. The syntax changes, as such:
     $global_walk_results = $riak->linkwalk({
@@ -188,9 +227,30 @@ great potential, and it's the one thing we tried to make really simple with Data
         params => [ [ 'other_bucket', 'buddy', 1 ] ]
     });
 
-The bucket passed in on the riak object's linkwalk is the bucket the original target is in, and is used as a default if you only pass two options in the params lists.
+The bucket passed in on the riak object's linkwalk is the bucket the original
+target is in, and is used as a default if you only pass two options in the
+params lists.
+
+=head1 ATTRIBUTES
+
+=head2 transport
+
+A L<Data::Riak::Transport> to be used in order to communicate with
+Riak. Currently, the only existing transport is L<Data::Riak::HTTP>.
 
 =head1 METHODS
+
+=head2 ping
+
+Tests to see if the specified Riak server is answering. Returns 0 for no, 1 for
+yes.
+
+=head2 status
+
+Attempts to retrieve information about the performance and configuration of the
+Riak node. Returns a hash reference containing the data provided by the
+C</stats> endpoint of the Riak node or throws an exception if the status
+information could not be retrieved.
 
 =head2 _buckets
 
@@ -206,28 +266,41 @@ Given a C<$name>, this will return a L<Data::Riak::Bucket> object for it.
 
 Influenced heavily by L<Net::Riak>.
 
-I wrote the first pass of Data::Riak, but large sections were added/fixed/rewritten to not suck by Stevan Little C<< <stevan at cpan.org> >> and Cory Watson C<< <gphat at cpan.org> >>.
+I wrote the first pass of Data::Riak, but large sections were
+added/fixed/rewritten to not suck by Stevan Little C<< <stevan at cpan.org> >>
+and Cory Watson C<< <gphat at cpan.org> >>.
 
 =head1 TODO
 
-Docs, docs, and more docs. The individual modules have a lot of functionality that needs documented.
+Docs, docs, and more docs. The individual modules have a lot of functionality
+that needs documented.
 
 =head1 COPYRIGHT & LICENSE
 
 This software is copyright (c) 2012 by Infinity Interactive, Inc..
 
-This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.
+This is free software; you can redistribute it and/or modify it under the same
+terms as the Perl 5 programming language system itself.
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

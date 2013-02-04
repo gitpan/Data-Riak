@@ -14,7 +14,7 @@ use Data::Riak::Bucket;
 
 skip_unless_riak;
 
-my $riak = Data::Riak->new(transport => Data::Riak::HTTP->new);
+my $riak = riak_transport;
 my $bucket_name = create_test_bucket_name;
 
 my $bucket = Data::Riak::Bucket->new({
@@ -53,9 +53,17 @@ $bucket->remove('foo');
 try {
     $bucket->get('foo')
 } catch {
-    is($_->value, "not found\n", "Calling for a value that doesn't exist returns not found");
-    is($_->code, "404", "Calling for a value that doesn't exist returns 404");
+    isa_ok $_, 'Data::Riak::Exception::ObjectNotFound';
+    like $_, qr/Object not found/;
+    isa_ok $_->request, 'Data::Riak::Request::GetObject';
+    is $_->request->bucket_name, $bucket_name;
+    is $_->request->key, 'foo';
+    is $_->transport_response->code, "404",
+        "Calling for a value that doesn't exist returns 404";
 };
+
+is exception { $bucket->remove('foo') }, undef,
+    'removing a non-existent key is non-fatal';
 
 $bucket->add('bar', 'value of bar', { links => [Data::Riak::Link->new( bucket => $bucket_name, riaktag => 'buddy', key =>'foo' )] });
 $bucket->add('baz', 'value of baz', { links => [$bucket->create_link( riaktag => 'buddy', key =>'foo' )] });
@@ -83,6 +91,11 @@ is(scalar @{$resultset->results}, 2, 'Got two Riak::Results back from linkwalkin
 
 my $dw_results = $bucket->linkwalk('bar', [ [ 'buddy', '_' ], [ $bucket_name, 'not a buddy', '_' ] ]);
 is(scalar $dw_results->all, 2, 'Got two Riak::Results back from linkwalking bar');
+
+{
+    ok +(grep { $_ eq $bucket_name } @{ $riak->_buckets }),
+       '_buckets lists our new bucket';
+}
 
 remove_test_bucket($bucket);
 

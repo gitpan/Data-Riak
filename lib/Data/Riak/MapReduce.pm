@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce;
 {
-  $Data::Riak::MapReduce::VERSION = '1.1';
+  $Data::Riak::MapReduce::VERSION = '1.2';
 }
 
 use strict;
@@ -13,7 +13,7 @@ use Data::Riak::MapReduce::Phase::Link;
 use Data::Riak::MapReduce::Phase::Map;
 use Data::Riak::MapReduce::Phase::Reduce;
 
-use JSON::XS qw/encode_json/;
+use namespace::autoclean;
 
 with 'Data::Riak::Role::HasRiak';
 
@@ -34,27 +34,24 @@ has phases => (
 
 sub mapreduce {
     my ($self, %options) = @_;
-  
+
     return $self->riak->send_request({
-        content_type => 'application/json',
-        method => 'POST',
-        uri => 'mapred',
-        data => encode_json({
+        type => 'MapReduce',
+        data => {
             inputs => $self->inputs,
             query => [ map { { $_->phase => $_->pack } } @{ $self->phases } ]
-        }),
+        },
         ($options{'chunked'}
-            ? (query => { chunked => 'true' })
+            ? (chunked => 1)
             : ()),
     });
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
-
+__END__
 
 =pod
 
@@ -64,7 +61,7 @@ Data::Riak::MapReduce - A map/reduce query
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
 =head1 SYNOPSIS
 
@@ -151,18 +148,25 @@ To enable streaming, do the following:
 
     my $results = $mr->mapreduce(chunked => 1);
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__

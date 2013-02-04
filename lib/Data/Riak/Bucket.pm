@@ -1,6 +1,6 @@
 package Data::Riak::Bucket;
 {
-  $Data::Riak::Bucket::VERSION = '1.1';
+  $Data::Riak::Bucket::VERSION = '1.2';
 }
 # ABSTRACT: A Data::Riak bucket, used for storing keys and values.
 
@@ -19,6 +19,8 @@ use Data::Riak::MapReduce::Phase::Reduce;
 use HTTP::Headers::ActionPack::LinkList;
 
 use JSON::XS qw/decode_json encode_json/;
+
+use namespace::autoclean;
 
 with 'Data::Riak::Role::HasRiak';
 
@@ -54,24 +56,24 @@ sub add {
     # see http://wiki.basho.com/HTTP-Store-Object.html
     # - SL
 
-    my $resultset = $self->riak->send_request({
-        method => 'PUT',
-        uri => sprintf('buckets/%s/keys/%s', $self->name, $key),
-        data => $value,
-        links => $pack,
-        (exists $opts->{'indexes'}
-            ? (indexes => $opts->{'indexes'})
-            : ()),
-        (exists $opts->{'content_type'}
-            ? (content_type => $opts->{'content_type'})
-            : ()),
-        (exists $opts->{'query'}
-            ? (query => $opts->{'query'})
-            : ()),
+    return $self->riak->send_request({
+        type        => 'StoreObject',
+        bucket_name => $self->name,
+        key         => $key,
+        value       => $value,
+        links       => $pack,
+        return_body => $opts->{return_body},
+        (exists $opts->{content_type}
+             ? (content_type => $opts->{content_type}) : ()),
+        (exists $opts->{indexes}
+             ? (indexes => $opts->{indexes}) : ()),
+        (exists $opts->{vector_clock}
+             ? (vector_clock => $opts->{vector_clock}) : ()),
+        (exists $opts->{if_unmodified_since}
+             ? (if_unmodified_since => $opts->{if_unmodified_since}) : ()),
+        (exists $opts->{if_match}
+             ? (if_match => $opts->{if_match}) : ()),
     });
-
-    return $resultset->first if $resultset;
-    return;
 }
 
 
@@ -81,11 +83,9 @@ sub remove {
     $opts ||= {};
 
     return $self->riak->send_request({
-        method => 'DELETE',
-        uri => sprintf('buckets/%s/keys/%s', $self->name, $key),
-        (exists $opts->{'query'}
-            ? (query => $opts->{'query'})
-            : ()),
+        type        => 'RemoveObject',
+        bucket_name => $self->name,
+        key         => $key,
     });
 }
 
@@ -94,7 +94,7 @@ sub remove {
 sub get {
     my ($self, $key, $opts) = @_;
 
-    die("This method requires a key") unless($key);
+    confess "This method requires a key" unless $key;
 
     $opts ||= {};
 
@@ -102,15 +102,10 @@ sub get {
         if exists $opts->{'accept'} && $opts->{'accept'} eq 'multipart/mixed';
 
     return $self->riak->send_request({
-        method => 'GET',
-        uri => sprintf('buckets/%s/keys/%s', $self->name, $key),
-        (exists $opts->{'accept'}
-            ? (accept => $opts->{'accept'})
-            : ()),
-        (exists $opts->{'query'}
-            ? (query => $opts->{'query'})
-            : ()),
-    })->first;
+        type        => 'GetObject',
+        bucket_name => $self->name,
+        key         => $key,
+    });
 }
 
 
@@ -118,13 +113,10 @@ sub get {
 sub list_keys {
     my $self = shift;
 
-    my $result = $self->riak->send_request({
-        method => 'GET',
-        uri => sprintf('buckets/%s/keys', $self->name),
-        query => { keys => 'true' }
-    })->first;
-
-    return decode_json( $result->value )->{'keys'};
+    return $self->riak->send_request({
+        type        => 'ListBucketKeys',
+        bucket_name => $self->name,
+    })->json_value->{keys};
 }
 
 
@@ -180,8 +172,8 @@ sub linkwalk {
 
 sub search_index {
     my ($self, $opts) = @_;
-    my $field  = $opts->{'field'}  || die 'You must specify a field for searching Secondary indexes';
-    my $values = $opts->{'values'} || die 'You must specify values for searching Secondary indexes';
+    my $field  = $opts->{'field'}  || confess 'You must specify a field for searching Secondary indexes';
+    my $values = $opts->{'values'} || confess 'You must specify values for searching Secondary indexes';
 
     my $inputs = { bucket => $self->name, index => $field };
     if(ref($values) eq 'ARRAY') {
@@ -209,38 +201,25 @@ sub search_index {
 # returns JUST the list of keys. human readable, not designed for MapReduce inputs.
 sub pretty_search_index {
     my ($self, $opts) = @_;
-    return [ sort map { $_->[1] } @{decode_json($self->search_index($opts))} ];    
+    return [ sort map { $_->[1] } @{decode_json($self->search_index($opts))} ];
 }
 
 sub props {
     my $self = shift;
 
-    my $result = $self->riak->send_request({
-        method => 'GET',
-        uri => sprintf('buckets/%s/props', $self->name)
-    })->first;
-
-    return decode_json( $result->value )->{'props'};
+    return $self->riak->send_request({
+        type        => 'GetBucketProps',
+        bucket_name => $self->name,
+    })->json_value->{props};
 }
 
-sub indexing {
-    my ($self, $enable) = @_;
-
-    my $data;
-
-    if($enable) {
-        $data->{props}->{precommit}->{mod} = 'riak_search_kv_hook';
-        $data->{props}->{precommit}->{fun} = 'precommit';
-    } else {
-        $data->{props}->{precommit}->{mod} = undef;
-        $data->{props}->{precommit}->{fun} = undef;
-    };
+sub set_props {
+    my ($self, $props) = @_;
 
     return $self->riak->send_request({
-        method => 'PUT',
-        content_type => 'application/json',
-        uri => $self->name,
-        data => encode_json($data)
+        type        => 'SetBucketProps',
+        bucket_name => $self->name,
+        props       => $props,
     });
 }
 
@@ -258,11 +237,10 @@ sub resolve_alias {
 }
 
 __PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
-
+__END__
 
 =pod
 
@@ -272,15 +250,9 @@ Data::Riak::Bucket - A Data::Riak bucket, used for storing keys and values.
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
-=head1 DESCRIPTION
-
-Data::Riak::Bucket is the primary interface that most people will use for Riak.
-Adding and removing keys and values, adding links, querying keys; all of those
-happen here.
-
-=head SYNOPSIS
+=head1 SYNOPSIS
 
     my $bucket = Data::Riak::Bucket->new({
         name => 'my_bucket',
@@ -306,6 +278,12 @@ happen here.
     $bucket->add('baz, 'value of baz', { links => [$bucket->create_link( riaktag => 'buddy', key =>'foo' )] });
     my $resultset = $bucket->linkwalk('baz', [[ 'buddy', '_' ]]);
     my $value = $resultset->first->value;   # Will be "bar", the value of foo
+
+=head1 DESCRIPTION
+
+Data::Riak::Bucket is the primary interface that most people will use for Riak.
+Adding and removing keys and values, adding links, querying keys; all of those
+happen here.
 
 =head1 METHODS
 
@@ -355,18 +333,25 @@ some other automatically generated identifier. Can cross buckets, as well.
 
 Returns the L<Data::Riak::Result> that $alias points to.
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__

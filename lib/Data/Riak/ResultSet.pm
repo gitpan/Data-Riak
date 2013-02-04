@@ -1,6 +1,6 @@
 package Data::Riak::ResultSet;
 {
-  $Data::Riak::ResultSet::VERSION = '1.1';
+  $Data::Riak::ResultSet::VERSION = '1.2';
 }
 
 use strict;
@@ -9,8 +9,8 @@ use warnings;
 use Moose;
 
 has results => (
-    is => 'rw',
-    isa => 'ArrayRef[Data::Riak::Result]',
+    is       => 'ro',
+    isa      => 'ArrayRef[Data::Riak::Result]',
     required => 1
 );
 
@@ -23,7 +23,7 @@ no Moose;
 
 1;
 
-
+__END__
 
 =pod
 
@@ -33,20 +33,27 @@ Data::Riak::ResultSet
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
-=head1 AUTHOR
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__

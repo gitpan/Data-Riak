@@ -1,188 +1,99 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '1.1';
+  $Data::Riak::Result::VERSION = '1.2';
 }
-
-use strict;
-use warnings;
+# ABSTRACT: A result of a Riak query
 
 use Moose;
-
-use Data::Riak::Link;
-
-use URI;
-use HTTP::Headers::ActionPack;
+use MooseX::StrictConstructor;
 
 with 'Data::Riak::Role::HasRiak';
 
-has bucket => (
-    is => 'ro',
-    isa => 'Data::Riak::Bucket',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-        $self->riak->bucket( $self->bucket_name )
-    }
-);
 
-has location => (
-    is => 'ro',
-    isa => 'URI',
-    lazy => 1,
-    clearer => '_clear_location',
-    default => sub {
-        my $self = shift;
-        return $self->http_message->request->uri if $self->http_message->can('request');
-        return URI->new( $self->http_message->header('location') || die "Cannot determine location from " . $self->http_message );
-    }
-);
-
-has bucket_name => (
-    is => 'ro',
-    isa => 'Str',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-        my @uri_parts = split /\//, $self->location->path;
-        return $uri_parts[$#uri_parts - 2];
-    }
-);
-
-has key => (
-    is => 'ro',
-    isa => 'Str',
-    lazy => 1,
-    default => sub {
-        my $self = shift;
-        my @uri_parts = split /\//, $self->location->path;
-        return $uri_parts[$#uri_parts];
-    }
-);
-
-has links => (
-    is => 'rw',
-    isa => 'ArrayRef[Data::Riak::Link]',
-    lazy => 1,
-    clearer => '_clear_links',
-    default => sub {
-        my $self = shift;
-        my $links = $self->http_message->header('link');
-        return [] unless $links;
-        return [ map {
-            Data::Riak::Link->from_link_header( $_ )
-        } $links->iterable ];
-    }
-);
-
-has http_message => (
-    is => 'rw',
-    isa => 'HTTP::Message',
+has status_code => (
+    is       => 'ro',
+    isa      => 'Int',
     required => 1,
-    handles => {
-        'status_code' => 'code',
-        'value' => 'content',
-        'header' => 'header',
-        'headers' => 'headers',
-        # curried delegation
-        'etag' => [ 'header' => 'etag' ],
-        'content_type' => [ 'header' => 'content-type' ],
-        'vector_clock' => [ 'header' => 'x-riak-vclock' ],
-        'last_modified' => [ 'header' => 'last_modified' ]
-    }
 );
 
-sub BUILD {
-    my $self = shift;
-    HTTP::Headers::ActionPack->new->inflate( $self->http_message->headers );
-}
 
-sub create_link {
-    my ($self, %opts) = @_;
-    return Data::Riak::Link->new({
-        bucket => $self->bucket_name,
-        key => $self->key,
-        riaktag => $opts{riaktag},
-        (exists $opts{params} ? (params => $opts{params}) : ())
-    });
-}
+has content_type => (
+    is       => 'ro',
+    isa      => 'HTTP::Headers::ActionPack::MediaType',
+    required => 1,
+);
 
-# if it's been changed on the server, discard those changes and update the object
-sub sync {
-    $_[0] = $_[0]->bucket->get($_[0]->key)
-}
 
-# if it's been changed locally, save those changes to the server
-sub save {
-    my $self = shift;
-    return $self->bucket->add($self->key, $self->value, { links => $self->links });
-}
-
-sub linkwalk {
-    my ($self, $params) = @_;
-    return undef unless $params;
-    return $self->riak->linkwalk({
-        bucket => $self->bucket_name,
-        object => $self->key,
-        params => $params
-    });
-}
-
-sub add_link {
-    my ($self, $link) = @_;
-    return undef unless $link;
-    my $links = $self->links;
-    push @{$links}, $link;
-    $self->links($links);
-    return $self;
-}
-
-sub remove_link {
-    my ($self, $args) = @_;
-    my $key = $args->{key};
-    my $riaktag = $args->{riaktag};
-    my $bucket = $args->{bucket};
-    my $links = $self->links;
-    my $new_links;
-    foreach my $link (@{$links}) {
-        next if($bucket && ($bucket eq $link->bucket));
-        next if($key && $link->has_key && ($key eq $link->key));
-        next if($riaktag && $link->has_riaktag && ($riaktag eq $link->riaktag));
-        push @{$new_links}, $link;
-    }
-    $self->links($new_links);
-    return $self;
-}
-
+has value => (
+    is  => 'ro',
+    isa => 'Str',
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
 1;
 
-
+__END__
 
 =pod
 
 =head1 NAME
 
-Data::Riak::Result
+Data::Riak::Result - A result of a Riak query
 
 =head1 VERSION
 
-version 1.1
+version 1.2
 
-=head1 AUTHOR
+=head1 SYNOPSIS
+
+  my $result = $bucket->get('key');
+  $result->value;
+
+=head1 DESCRIPTION
+
+This class represents the result of a query to Riak.
+
+Note that different kinds of requests can result in different kinds of
+results. For a listing of different request kinds and their corresponding result
+classes, see L<Data::Riak::Request>. This document only describes attributes
+common to all result classes.
+
+=head1 ATTRIBUTES
+
+=head2 status_code
+
+A code describing the result of the query that produced this result. Currently
+this is an HTTP status code.
+
+=head2 content_type
+
+The result's content type.
+
+=head2
+
+The result's value.
+
+=head1 AUTHORS
+
+=over 4
+
+=item *
 
 Andrew Nelson <anelson at cpan.org>
 
+=item *
+
+Florian Ragwitz <rafl@debian.org>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Infinity Interactive.
+This software is copyright (c) 2013 by Infinity Interactive.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
-
-__END__

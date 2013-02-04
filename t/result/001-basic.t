@@ -14,7 +14,7 @@ skip_unless_riak;
 
 my $bucket = Data::Riak::Bucket->new({
     name => create_test_bucket_name,
-    riak => Data::Riak->new(transport => Data::Riak::HTTP->new)
+    riak => riak_transport,
 });
 
 is(exception {
@@ -38,7 +38,6 @@ like($obj->etag, qr/^"[a-zA-Z0-9]*"$/, '... got an etag');
 like($obj->vector_clock, qr/^.*\=$/, '... got a vector_clock');
 
 is($obj->status_code, 200, '... got the right status code');
-isa_ok($obj->http_message, 'HTTP::Message');
 
 is($obj->riak, $bucket->riak, 'Derived host is correct');
 
