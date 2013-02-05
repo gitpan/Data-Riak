@@ -1,6 +1,6 @@
 package Data::Riak::HTTPExceptionFactory;
 {
-  $Data::Riak::HTTPExceptionFactory::VERSION = '1.2';
+  $Data::Riak::HTTPExceptionFactory::VERSION = '1.3';
 }
 
 use Moose;
@@ -28,7 +28,7 @@ Data::Riak::HTTPExceptionFactory
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 AUTHORS
 

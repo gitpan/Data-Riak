@@ -1,6 +1,6 @@
 package Data::Riak::Exception::MultipleSiblingsAvailable;
 {
-  $Data::Riak::Exception::MultipleSiblingsAvailable::VERSION = '1.2';
+  $Data::Riak::Exception::MultipleSiblingsAvailable::VERSION = '1.3';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::MultipleSiblingsAvailable
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 AUTHORS
 

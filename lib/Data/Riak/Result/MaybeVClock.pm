@@ -1,6 +1,6 @@
-package Data::Riak::Result::VClock;
+package Data::Riak::Result::MaybeVClock;
 {
-  $Data::Riak::Result::VClock::VERSION = '1.2';
+  $Data::Riak::Result::MaybeVClock::VERSION = '1.3';
 }
 # ABSTRACT: Result class for requests returning a vector clock
 
@@ -8,7 +8,7 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Data::Riak::Result';
-with 'Data::Riak::Result::WithVClock';
+with 'Data::Riak::Result::MaybeWithVClock';
 
 __PACKAGE__->meta->make_immutable;
 
@@ -20,11 +20,11 @@ __END__
 
 =head1 NAME
 
-Data::Riak::Result::VClock - Result class for requests returning a vector clock
+Data::Riak::Result::MaybeVClock - Result class for requests returning a vector clock
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 AUTHORS
 

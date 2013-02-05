@@ -1,10 +1,10 @@
 package Data::Riak::Request::RemoveObject;
 {
-  $Data::Riak::Request::RemoveObject::VERSION = '1.2';
+  $Data::Riak::Request::RemoveObject::VERSION = '1.3';
 }
 
 use Moose;
-use Data::Riak::Result::VClock;
+use Data::Riak::Result::MaybeVClock;
 use namespace::autoclean;
 
 sub as_http_request_args {
@@ -26,7 +26,7 @@ with 'Data::Riak::Request::WithObject',
      'Data::Riak::Request::WithHTTPExceptionHandling';
 
 has '+result_class' => (
-    default => Data::Riak::Result::VClock::,
+    default => Data::Riak::Result::MaybeVClock::,
 );
 
 __PACKAGE__->meta->make_immutable;
@@ -43,7 +43,7 @@ Data::Riak::Request::RemoveObject
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 AUTHORS
 

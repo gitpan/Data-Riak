@@ -1,6 +1,6 @@
-package Data::Riak::Result::WithVClock;
+package Data::Riak::Result::MaybeWithVClock;
 {
-  $Data::Riak::Result::WithVClock::VERSION = '1.2';
+  $Data::Riak::Result::MaybeWithVClock::VERSION = '1.3';
 }
 # ABSTRACT: Results with vector clock headers
 
@@ -9,9 +9,9 @@ use namespace::autoclean;
 
 
 has vector_clock => (
-    is       => 'ro',
-    isa      => 'Str',
-    required => 1,
+    is        => 'ro',
+    isa       => 'Str',
+    predicate => 'has_vector_clock',
 );
 
 1;
@@ -22,11 +22,11 @@ __END__
 
 =head1 NAME
 
-Data::Riak::Result::WithVClock - Results with vector clock headers
+Data::Riak::Result::MaybeWithVClock - Results with vector clock headers
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 ATTRIBUTES
 

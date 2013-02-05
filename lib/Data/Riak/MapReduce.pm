@@ -1,6 +1,6 @@
 package Data::Riak::MapReduce;
 {
-  $Data::Riak::MapReduce::VERSION = '1.2';
+  $Data::Riak::MapReduce::VERSION = '1.3';
 }
 
 use strict;
@@ -61,7 +61,7 @@ Data::Riak::MapReduce - A map/reduce query
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 SYNOPSIS
 

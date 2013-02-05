@@ -1,6 +1,6 @@
 package Data::Riak::Result::WithLocation;
 {
-  $Data::Riak::Result::WithLocation::VERSION = '1.2';
+  $Data::Riak::Result::WithLocation::VERSION = '1.3';
 }
 # ABSTRACT: Results with a Location
 
@@ -126,7 +126,7 @@ Data::Riak::Result::WithLocation - Results with a Location
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 ATTRIBUTES
 

@@ -46,15 +46,15 @@ lib/Data/Riak/Request/WithHTTPExceptionHandling.pm
 lib/Data/Riak/Request/WithObject.pm
 lib/Data/Riak/Result.pm
 lib/Data/Riak/Result/JSONValue.pm
+lib/Data/Riak/Result/MaybeVClock.pm
+lib/Data/Riak/Result/MaybeWithVClock.pm
 lib/Data/Riak/Result/Object.pm
 lib/Data/Riak/Result/Single.pm
 lib/Data/Riak/Result/SingleJSONValue.pm
 lib/Data/Riak/Result/SingleObject.pm
 lib/Data/Riak/Result/SingleValue.pm
-lib/Data/Riak/Result/VClock.pm
 lib/Data/Riak/Result/WithLinks.pm
 lib/Data/Riak/Result/WithLocation.pm
-lib/Data/Riak/Result/WithVClock.pm
 lib/Data/Riak/ResultSet.pm
 lib/Data/Riak/Role/HasRiak.pm
 lib/Data/Riak/Transport.pm

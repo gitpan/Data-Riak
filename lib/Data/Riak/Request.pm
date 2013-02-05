@@ -1,6 +1,6 @@
 package Data::Riak::Request;
 {
-  $Data::Riak::Request::VERSION = '1.2';
+  $Data::Riak::Request::VERSION = '1.3';
 }
 # ABSTRACT: A request to Riak
 
@@ -34,7 +34,7 @@ Data::Riak::Request - A request to Riak
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 DESCRIPTION
 
@@ -78,7 +78,7 @@ L<Data::Riak::Result::SingleValue>
 
 =item L<Data::Riak::Request::RemoveObject>
 
-L<Data::Riak::Result::VClock>
+L<Data::Riak::Result::MaybeVClock>
 
 =item L<Data::Riak::Request::SetBucketProps>
 

@@ -1,6 +1,6 @@
 package Test::Data::Riak;
 {
-  $Test::Data::Riak::VERSION = '1.2';
+  $Test::Data::Riak::VERSION = '1.3';
 }
 
 use strict;
@@ -125,8 +125,8 @@ sub remove_test_bucket {
               if $ENV{HARNESS_IS_VERBOSE};
         my $keys = $bucket->list_keys;
         while ( $keys && @$keys ) {
-            sleep(1);
             $bucket->remove_all;
+            sleep(1);
             $keys = $bucket->list_keys;
         }
     } catch {
@@ -144,7 +144,7 @@ Test::Data::Riak
 
 =head1 VERSION
 
-version 1.2
+version 1.3
 
 =head1 AUTHORS
 

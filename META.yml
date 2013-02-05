@@ -20,6 +20,7 @@ name: Data-Riak
 requires:
   Carp: 0
   Class::Load: 0
+  Data::Riak::Result::WithVClock: 0
   Digest::MD5: 0
   HTTP::Headers: 0
   HTTP::Headers::ActionPack: 0.05
@@ -51,4 +52,4 @@ requires:
   warnings: 0
 resources:
   repository: http://github.com/holophrastic/data-riak.git
-version: 1.2
+version: 1.3
