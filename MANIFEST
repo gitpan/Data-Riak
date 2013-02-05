@@ -67,6 +67,7 @@ lib/Test/Data/Riak.pm
 t/000-load.t
 t/001-ping.t
 t/002-override.t
+t/003-test-exports.t
 t/buckets/000-load.t
 t/buckets/001-simple.t
 t/buckets/002-simple-add.t

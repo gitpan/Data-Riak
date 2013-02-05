@@ -52,4 +52,4 @@ requires:
   warnings: 0
 resources:
   repository: http://github.com/holophrastic/data-riak.git
-version: 1.3
+version: 1.4

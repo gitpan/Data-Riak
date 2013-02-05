@@ -1,6 +1,6 @@
 package Data::Riak;
 {
-  $Data::Riak::VERSION = '1.3';
+  $Data::Riak::VERSION = '1.4';
 }
 # ABSTRACT: An interface to a Riak server.
 
@@ -148,7 +148,7 @@ Data::Riak - An interface to a Riak server.
 
 =head1 VERSION
 
-version 1.3
+version 1.4
 
 =head1 SYNOPSIS
 

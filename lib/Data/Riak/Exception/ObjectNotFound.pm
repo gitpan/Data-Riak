@@ -1,6 +1,6 @@
 package Data::Riak::Exception::ObjectNotFound;
 {
-  $Data::Riak::Exception::ObjectNotFound::VERSION = '1.3';
+  $Data::Riak::Exception::ObjectNotFound::VERSION = '1.4';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::ObjectNotFound
 
 =head1 VERSION
 
-version 1.3
+version 1.4
 
 =head1 AUTHORS
 

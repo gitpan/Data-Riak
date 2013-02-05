@@ -1,6 +1,6 @@
 package Data::Riak::Request::WithObject;
 {
-  $Data::Riak::Request::WithObject::VERSION = '1.3';
+  $Data::Riak::Request::WithObject::VERSION = '1.4';
 }
 
 use Moose::Role;
@@ -42,7 +42,7 @@ Data::Riak::Request::WithObject
 
 =head1 VERSION
 
-version 1.3
+version 1.4
 
 =head1 AUTHORS
 

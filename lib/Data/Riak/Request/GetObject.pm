@@ -1,6 +1,6 @@
 package Data::Riak::Request::GetObject;
 {
-  $Data::Riak::Request::GetObject::VERSION = '1.3';
+  $Data::Riak::Request::GetObject::VERSION = '1.4';
 }
 
 use Moose;
@@ -46,7 +46,7 @@ Data::Riak::Request::GetObject
 
 =head1 VERSION
 
-version 1.3
+version 1.4
 
 =head1 AUTHORS
 

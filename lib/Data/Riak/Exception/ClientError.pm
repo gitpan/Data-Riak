@@ -1,6 +1,6 @@
 package Data::Riak::Exception::ClientError;
 {
-  $Data::Riak::Exception::ClientError::VERSION = '1.3';
+  $Data::Riak::Exception::ClientError::VERSION = '1.4';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::ClientError
 
 =head1 VERSION
 
-version 1.3
+version 1.4
 
 =head1 AUTHORS
 
