@@ -42,7 +42,7 @@ requires:
   MooseX::StrictConstructor: 0
   Sub::Exporter: 0
   Test::More: 0
-  Throwable::Error: 0
+  Throwable::Error: 0.200003
   Try::Tiny: 0
   URI: 0
   URL::Encode: 0
@@ -53,4 +53,4 @@ requires:
   warnings: 0
 resources:
   repository: http://github.com/holophrastic/data-riak.git
-version: 1.6
+version: 1.7

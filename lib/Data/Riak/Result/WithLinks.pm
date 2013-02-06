@@ -1,6 +1,6 @@
 package Data::Riak::Result::WithLinks;
 {
-  $Data::Riak::Result::WithLinks::VERSION = '1.6';
+  $Data::Riak::Result::WithLinks::VERSION = '1.7';
 }
 # ABSTRACT: Results with links
 
@@ -63,7 +63,7 @@ Data::Riak::Result::WithLinks - Results with links
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 ATTRIBUTES
 

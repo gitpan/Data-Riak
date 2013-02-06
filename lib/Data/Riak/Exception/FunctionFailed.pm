@@ -1,6 +1,6 @@
 package Data::Riak::Exception::FunctionFailed;
 {
-  $Data::Riak::Exception::FunctionFailed::VERSION = '1.6';
+  $Data::Riak::Exception::FunctionFailed::VERSION = '1.7';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::FunctionFailed
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 AUTHORS
 

@@ -49,7 +49,7 @@ my %WriteMakefileArgs = (
     "MooseX::StrictConstructor" => 0,
     "Sub::Exporter" => 0,
     "Test::More" => 0,
-    "Throwable::Error" => 0,
+    "Throwable::Error" => "0.200003",
     "Try::Tiny" => 0,
     "URI" => 0,
     "URL::Encode" => 0,
@@ -59,7 +59,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.6",
+  "VERSION" => "1.7",
   "test" => {
     "TESTS" => "t/*.t t/buckets/*.t t/http/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }

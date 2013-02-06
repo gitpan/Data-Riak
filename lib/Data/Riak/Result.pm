@@ -1,6 +1,6 @@
 package Data::Riak::Result;
 {
-  $Data::Riak::Result::VERSION = '1.6';
+  $Data::Riak::Result::VERSION = '1.7';
 }
 # ABSTRACT: A result of a Riak query
 
@@ -44,7 +44,7 @@ Data::Riak::Result - A result of a Riak query
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 SYNOPSIS
 

@@ -1,6 +1,6 @@
 package Data::Riak::Request::RemoveObject;
 {
-  $Data::Riak::Request::RemoveObject::VERSION = '1.6';
+  $Data::Riak::Request::RemoveObject::VERSION = '1.7';
 }
 
 use Moose;
@@ -43,7 +43,7 @@ Data::Riak::Request::RemoveObject
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 AUTHORS
 

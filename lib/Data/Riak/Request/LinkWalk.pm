@@ -1,6 +1,6 @@
 package Data::Riak::Request::LinkWalk;
 {
-  $Data::Riak::Request::LinkWalk::VERSION = '1.6';
+  $Data::Riak::Request::LinkWalk::VERSION = '1.7';
 }
 
 use Moose;
@@ -60,7 +60,7 @@ Data::Riak::Request::LinkWalk
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 AUTHORS
 

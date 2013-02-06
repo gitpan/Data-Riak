@@ -1,6 +1,6 @@
 package Data::Riak::Request;
 {
-  $Data::Riak::Request::VERSION = '1.6';
+  $Data::Riak::Request::VERSION = '1.7';
 }
 # ABSTRACT: A request to Riak
 
@@ -34,7 +34,7 @@ Data::Riak::Request - A request to Riak
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 DESCRIPTION
 

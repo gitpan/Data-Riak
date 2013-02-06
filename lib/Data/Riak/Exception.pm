@@ -1,12 +1,12 @@
 package Data::Riak::Exception;
 {
-  $Data::Riak::Exception::VERSION = '1.6';
+  $Data::Riak::Exception::VERSION = '1.7';
 }
 
 use Moose;
 use namespace::autoclean;
 
-extends 'Throwable::Error';
+extends 'Throwable::Error' => { -version => '0.200003' };
 
 has request => (
     is       => 'ro',
@@ -40,7 +40,7 @@ Data::Riak::Exception
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 AUTHORS
 

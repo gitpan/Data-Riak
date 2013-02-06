@@ -1,6 +1,6 @@
 package Data::Riak::Request::Status;
 {
-  $Data::Riak::Request::Status::VERSION = '1.6';
+  $Data::Riak::Request::Status::VERSION = '1.7';
 }
 
 use Moose;
@@ -45,7 +45,7 @@ Data::Riak::Request::Status
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 AUTHORS
 

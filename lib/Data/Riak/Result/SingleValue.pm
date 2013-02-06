@@ -1,6 +1,6 @@
 package Data::Riak::Result::SingleValue;
 {
-  $Data::Riak::Result::SingleValue::VERSION = '1.6';
+  $Data::Riak::Result::SingleValue::VERSION = '1.7';
 }
 # ABSTRACT: Result class for requests with a single result
 
@@ -25,7 +25,7 @@ Data::Riak::Result::SingleValue - Result class for requests with a single result
 
 =head1 VERSION
 
-version 1.6
+version 1.7
 
 =head1 SEE ALSO
 
