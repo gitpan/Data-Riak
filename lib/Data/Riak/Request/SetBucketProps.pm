@@ -1,6 +1,6 @@
 package Data::Riak::Request::SetBucketProps;
 {
-  $Data::Riak::Request::SetBucketProps::VERSION = '1.5';
+  $Data::Riak::Request::SetBucketProps::VERSION = '1.6';
 }
 
 use Moose;
@@ -45,7 +45,7 @@ Data::Riak::Request::SetBucketProps
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 AUTHORS
 

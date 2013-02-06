@@ -1,6 +1,6 @@
 package Data::Riak::Result::Object;
 {
-  $Data::Riak::Result::Object::VERSION = '1.5';
+  $Data::Riak::Result::Object::VERSION = '1.6';
 }
 # ABSTRACT: A result containing a full object
 
@@ -40,7 +40,7 @@ Data::Riak::Result::Object - A result containing a full object
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 DESCRIPTION
 

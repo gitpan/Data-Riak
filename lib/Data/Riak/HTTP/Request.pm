@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::Request;
 {
-  $Data::Riak::HTTP::Request::VERSION = '1.5';
+  $Data::Riak::HTTP::Request::VERSION = '1.6';
 }
 
 use strict;
@@ -65,10 +65,16 @@ has accept => (
 has headers => (
     is      => 'ro',
     isa     => 'HashRef',
+    lazy    => 1,
     builder => '_build_headers',
 );
 
 sub _build_headers { +{} }
+
+sub BUILD {
+    my ($self) = @_;
+    $self->headers;
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -85,7 +91,7 @@ Data::Riak::HTTP::Request
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 AUTHORS
 

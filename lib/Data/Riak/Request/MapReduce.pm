@@ -1,6 +1,6 @@
 package Data::Riak::Request::MapReduce;
 {
-  $Data::Riak::Request::MapReduce::VERSION = '1.5';
+  $Data::Riak::Request::MapReduce::VERSION = '1.6';
 }
 
 use Moose;
@@ -58,7 +58,7 @@ Data::Riak::Request::MapReduce
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 AUTHORS
 

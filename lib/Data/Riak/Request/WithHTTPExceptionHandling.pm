@@ -1,6 +1,6 @@
 package Data::Riak::Request::WithHTTPExceptionHandling;
 {
-  $Data::Riak::Request::WithHTTPExceptionHandling::VERSION = '1.5';
+  $Data::Riak::Request::WithHTTPExceptionHandling::VERSION = '1.6';
 }
 
 use Moose::Role;
@@ -33,7 +33,7 @@ Data::Riak::Request::WithHTTPExceptionHandling
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 AUTHORS
 

@@ -1,6 +1,6 @@
 package Data::Riak::ResultSet;
 {
-  $Data::Riak::ResultSet::VERSION = '1.5';
+  $Data::Riak::ResultSet::VERSION = '1.6';
 }
 
 use strict;
@@ -33,7 +33,7 @@ Data::Riak::ResultSet
 
 =head1 VERSION
 
-version 1.5
+version 1.6
 
 =head1 AUTHORS
 
