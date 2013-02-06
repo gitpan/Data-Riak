@@ -1,6 +1,6 @@
 package Data::Riak::HTTP;
 {
-  $Data::Riak::HTTP::VERSION = '1.4';
+  $Data::Riak::HTTP::VERSION = '1.5';
 }
 # ABSTRACT: An interface to a Riak server, using its HTTP (REST) interface
 
@@ -159,6 +159,24 @@ sub _build_base_uri {
     return sprintf('%s://%s:%s/', $self->protocol, $self->host, $self->port);
 }
 
+has request_class => (
+    is      => 'ro',
+    isa     => 'ClassName',
+    default => Data::Riak::HTTP::Request::,
+    handles => {
+        _new_request => 'new',
+    },
+);
+
+has request_class_args => (
+    traits  => ['Hash'],
+    isa     => 'HashRef',
+    default => sub { +{} },
+    handles => {
+        request_class_args => 'elements',
+    },
+);
+
 sub BUILD {
     my ($self) = @_;
     $self->base_uri;
@@ -166,7 +184,10 @@ sub BUILD {
 
 sub create_request {
     my ($self, $request) = @_;
-    return Data::Riak::HTTP::Request->new($request->as_http_request_args);
+    return $self->_new_request({
+        $self->request_class_args,
+        %{ $request->as_http_request_args },
+    });
 }
 
 
@@ -241,7 +262,7 @@ Data::Riak::HTTP - An interface to a Riak server, using its HTTP (REST) interfac
 
 =head1 VERSION
 
-version 1.4
+version 1.5
 
 =head1 ATTRIBUTES
 

@@ -1,6 +1,6 @@
 package Test::Data::Riak;
 {
-  $Test::Data::Riak::VERSION = '1.4';
+  $Test::Data::Riak::VERSION = '1.5';
 }
 
 use strict;
@@ -156,7 +156,7 @@ Test::Data::Riak
 
 =head1 VERSION
 
-version 1.4
+version 1.5
 
 =head1 AUTHORS
 

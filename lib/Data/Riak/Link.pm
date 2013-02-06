@@ -1,6 +1,6 @@
 package Data::Riak::Link;
 {
-  $Data::Riak::Link::VERSION = '1.4';
+  $Data::Riak::Link::VERSION = '1.5';
 }
 
 use strict;
@@ -100,7 +100,7 @@ Data::Riak::Link
 
 =head1 VERSION
 
-version 1.4
+version 1.5
 
 =head1 AUTHORS
 

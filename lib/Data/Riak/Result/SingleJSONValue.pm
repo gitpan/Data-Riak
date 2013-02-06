@@ -1,6 +1,6 @@
 package Data::Riak::Result::SingleJSONValue;
 {
-  $Data::Riak::Result::SingleJSONValue::VERSION = '1.4';
+  $Data::Riak::Result::SingleJSONValue::VERSION = '1.5';
 }
 # ABSTRACT: Single result containing JSON data
 
@@ -27,7 +27,7 @@ Data::Riak::Result::SingleJSONValue - Single result containing JSON data
 
 =head1 VERSION
 
-version 1.4
+version 1.5
 
 =head1 DESCRIPTION
 

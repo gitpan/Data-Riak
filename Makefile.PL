@@ -12,6 +12,7 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "An interface to a Riak server.",
   "AUTHOR" => "Andrew Nelson <anelson at cpan.org>, Florian Ragwitz <rafl\@debian.org>",
   "BUILD_REQUIRES" => {
+    "MIME::Base64" => 0,
     "Test::Fatal" => 0,
     "Test::Memory::Cycle" => 0,
     "Test::More" => "0.89",
@@ -58,9 +59,9 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.4",
+  "VERSION" => "1.5",
   "test" => {
-    "TESTS" => "t/*.t t/buckets/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
+    "TESTS" => "t/*.t t/buckets/*.t t/http/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }
 );
 
