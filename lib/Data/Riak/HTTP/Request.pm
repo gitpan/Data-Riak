@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::Request;
 {
-  $Data::Riak::HTTP::Request::VERSION = '1.8';
+  $Data::Riak::HTTP::Request::VERSION = '1.9';
 }
 
 use strict;
@@ -91,7 +91,7 @@ Data::Riak::HTTP::Request
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

@@ -1,6 +1,6 @@
 package Data::Riak::Role::Bucket;
 {
-  $Data::Riak::Role::Bucket::VERSION = '1.8';
+  $Data::Riak::Role::Bucket::VERSION = '1.9';
 }
 
 use Moose::Role;
@@ -246,7 +246,7 @@ Data::Riak::Role::Bucket
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

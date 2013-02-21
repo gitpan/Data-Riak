@@ -1,6 +1,6 @@
 package Data::Riak::Exception::ServerError;
 {
-  $Data::Riak::Exception::ServerError::VERSION = '1.8';
+  $Data::Riak::Exception::ServerError::VERSION = '1.9';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::ServerError
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

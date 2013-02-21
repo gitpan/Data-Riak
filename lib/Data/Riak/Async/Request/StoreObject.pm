@@ -1,6 +1,6 @@
 package Data::Riak::Async::Request::StoreObject;
 {
-  $Data::Riak::Async::Request::StoreObject::VERSION = '1.8';
+  $Data::Riak::Async::Request::StoreObject::VERSION = '1.9';
 }
 
 use Moose;
@@ -23,7 +23,7 @@ Data::Riak::Async::Request::StoreObject
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

@@ -1,6 +1,6 @@
 package Data::Riak::Async::HTTP;
 {
-  $Data::Riak::Async::HTTP::VERSION = '1.8';
+  $Data::Riak::Async::HTTP::VERSION = '1.9';
 }
 
 use Moose;
@@ -29,6 +29,15 @@ has timeout => (
     is      => 'ro',
     isa     => 'Int',
     default => 15,
+);
+
+has request_arguments => (
+    traits  => ['Hash'],
+    isa     => 'HashRef',
+    default => sub { +{} },
+    handles => {
+        request_arguments => 'elements',
+    },
 );
 
 sub send {
@@ -101,6 +110,7 @@ sub _send_via_anyevent_http {
     );
 
     http_request $http_request->method, $http_request->uri,
+        $self->request_arguments,
         timeout => $self->timeout,
         headers => \%plain_headers,
         body    => $http_request->content,
@@ -139,7 +149,7 @@ Data::Riak::Async::HTTP
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

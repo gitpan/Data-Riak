@@ -1,6 +1,6 @@
 package Data::Riak::Exception::StatsNotEnabled;
 {
-  $Data::Riak::Exception::StatsNotEnabled::VERSION = '1.8';
+  $Data::Riak::Exception::StatsNotEnabled::VERSION = '1.9';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::StatsNotEnabled
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 

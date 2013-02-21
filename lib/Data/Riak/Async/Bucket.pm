@@ -1,6 +1,6 @@
 package Data::Riak::Async::Bucket;
 {
-  $Data::Riak::Async::Bucket::VERSION = '1.8';
+  $Data::Riak::Async::Bucket::VERSION = '1.9';
 }
 
 use Moose;
@@ -49,7 +49,7 @@ Data::Riak::Async::Bucket
 
 =head1 VERSION
 
-version 1.8
+version 1.9
 
 =head1 AUTHORS
 
