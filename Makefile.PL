@@ -26,6 +26,8 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Data::Riak",
   "PREREQ_PM" => {
+    "AnyEvent" => 0,
+    "AnyEvent::HTTP" => 0,
     "Carp" => 0,
     "Class::Load" => 0,
     "Data::Riak::Result::WithVClock" => 0,
@@ -59,9 +61,9 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.7",
+  "VERSION" => "1.8",
   "test" => {
-    "TESTS" => "t/*.t t/buckets/*.t t/http/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
+    "TESTS" => "t/*.t t/async/*.t t/buckets/*.t t/http/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }
 );
 

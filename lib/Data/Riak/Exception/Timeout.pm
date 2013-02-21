@@ -1,6 +1,6 @@
 package Data::Riak::Exception::Timeout;
 {
-  $Data::Riak::Exception::Timeout::VERSION = '1.7';
+  $Data::Riak::Exception::Timeout::VERSION = '1.8';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ Data::Riak::Exception::Timeout
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

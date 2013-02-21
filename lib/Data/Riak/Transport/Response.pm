@@ -1,6 +1,6 @@
 package Data::Riak::Transport::Response;
 {
-  $Data::Riak::Transport::Response::VERSION = '1.7';
+  $Data::Riak::Transport::Response::VERSION = '1.8';
 }
 
 use Moose::Role;
@@ -20,7 +20,7 @@ Data::Riak::Transport::Response
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

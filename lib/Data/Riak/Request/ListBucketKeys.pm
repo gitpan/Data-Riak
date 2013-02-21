@@ -1,6 +1,6 @@
 package Data::Riak::Request::ListBucketKeys;
 {
-  $Data::Riak::Request::ListBucketKeys::VERSION = '1.7';
+  $Data::Riak::Request::ListBucketKeys::VERSION = '1.8';
 }
 
 use Moose;
@@ -19,6 +19,11 @@ sub as_http_request_args {
             props => 'false',
         },
     };
+}
+
+sub _mangle_retval {
+    my ($self, $ret) = @_;
+    $ret->json_value->{keys};
 }
 
 with 'Data::Riak::Request::WithBucket';
@@ -41,7 +46,7 @@ Data::Riak::Request::ListBucketKeys
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

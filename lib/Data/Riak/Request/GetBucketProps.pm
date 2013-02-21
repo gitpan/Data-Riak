@@ -1,6 +1,6 @@
 package Data::Riak::Request::GetBucketProps;
 {
-  $Data::Riak::Request::GetBucketProps::VERSION = '1.7';
+  $Data::Riak::Request::GetBucketProps::VERSION = '1.8';
 }
 
 use Moose;
@@ -15,6 +15,11 @@ sub as_http_request_args {
         uri    => sprintf('buckets/%s/props', $self->bucket_name),
         accept => 'application/json',
     };
+}
+
+sub _mangle_retval {
+    my ($self, $ret) = @_;
+    $ret->json_value->{props};
 }
 
 with 'Data::Riak::Request::WithBucket';
@@ -37,7 +42,7 @@ Data::Riak::Request::GetBucketProps
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

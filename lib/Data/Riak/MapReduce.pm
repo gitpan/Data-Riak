@@ -1,33 +1,28 @@
 package Data::Riak::MapReduce;
 {
-  $Data::Riak::MapReduce::VERSION = '1.7';
+  $Data::Riak::MapReduce::VERSION = '1.8';
 }
-
-use strict;
-use warnings;
-
 # ABSTRACT: A map/reduce query
 
 use Moose;
 use Data::Riak::MapReduce::Phase::Link;
 use Data::Riak::MapReduce::Phase::Map;
 use Data::Riak::MapReduce::Phase::Reduce;
-
 use namespace::autoclean;
 
 with 'Data::Riak::Role::HasRiak';
 
 
 has inputs => (
-    is => 'ro',
-    isa => 'ArrayRef | Str | HashRef',
+    is       => 'ro',
+    isa      => 'ArrayRef | Str | HashRef',
     required => 1
 );
 
 
 has phases => (
-    is => 'ro',
-    isa => 'ArrayRef[Data::Riak::MapReduce::Phase]',
+    is       => 'ro',
+    isa      => 'ArrayRef[Data::Riak::MapReduce::Phase]',
     required => 1
 );
 
@@ -36,14 +31,12 @@ sub mapreduce {
     my ($self, %options) = @_;
 
     return $self->riak->send_request({
+        %options,
         type => 'MapReduce',
         data => {
             inputs => $self->inputs,
-            query => [ map { { $_->phase => $_->pack } } @{ $self->phases } ]
+            query  => [ map { { $_->phase => $_->pack } } @{ $self->phases } ]
         },
-        ($options{'chunked'}
-            ? (chunked => 1)
-            : ()),
     });
 }
 
@@ -61,7 +54,7 @@ Data::Riak::MapReduce - A map/reduce query
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 SYNOPSIS
 

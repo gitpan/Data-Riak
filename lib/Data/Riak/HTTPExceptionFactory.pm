@@ -1,6 +1,6 @@
 package Data::Riak::HTTPExceptionFactory;
 {
-  $Data::Riak::HTTPExceptionFactory::VERSION = '1.7';
+  $Data::Riak::HTTPExceptionFactory::VERSION = '1.8';
 }
 
 use Moose;
@@ -11,6 +11,15 @@ sub throw {
     my ($factory, $exception) = @_;
 
     HTTP::Throwable::Factory->throw({
+        status_code => $exception->transport_response->code,
+        reason      => $exception->message,
+    });
+}
+
+sub new_exception {
+    my ($factory, $exception) = @_;
+
+    HTTP::Throwable::Factory->new_exception({
         status_code => $exception->transport_response->code,
         reason      => $exception->message,
     });
@@ -28,7 +37,7 @@ Data::Riak::HTTPExceptionFactory
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

@@ -1,6 +1,6 @@
 package Data::Riak::Result::WithLinks;
 {
-  $Data::Riak::Result::WithLinks::VERSION = '1.7';
+  $Data::Riak::Result::WithLinks::VERSION = '1.8';
 }
 # ABSTRACT: Results with links
 
@@ -30,7 +30,8 @@ sub create_link {
 
 sub add_link {
     my ($self, $link) = @_;
-    return undef unless $link;
+    confess 'No link to add provided'
+        unless blessed $link && $link->isa('Data::Riak::Link');
     return $self->clone(links => [@{ $self->links }, $link]);
 }
 
@@ -63,7 +64,7 @@ Data::Riak::Result::WithLinks - Results with links
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 ATTRIBUTES
 

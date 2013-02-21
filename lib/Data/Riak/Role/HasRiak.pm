@@ -1,6 +1,6 @@
 package Data::Riak::Role::HasRiak;
 {
-  $Data::Riak::Role::HasRiak::VERSION = '1.7';
+  $Data::Riak::Role::HasRiak::VERSION = '1.8';
 }
 
 use Moose::Role;
@@ -8,8 +8,8 @@ use namespace::autoclean;
 
 has riak => (
     is       => 'ro',
-    isa      => 'Data::Riak',
-    required => 1
+    does     => 'Data::Riak::Role::Frontend',
+    required => 1,
 );
 
 1;
@@ -24,7 +24,7 @@ Data::Riak::Role::HasRiak
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

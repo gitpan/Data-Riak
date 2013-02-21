@@ -19,6 +19,8 @@ meta-spec:
   version: 1.4
 name: Data-Riak
 requires:
+  AnyEvent: 0
+  AnyEvent::HTTP: 0
   Carp: 0
   Class::Load: 0
   Data::Riak::Result::WithVClock: 0
@@ -53,4 +55,4 @@ requires:
   warnings: 0
 resources:
   repository: http://github.com/holophrastic/data-riak.git
-version: 1.7
+version: 1.8

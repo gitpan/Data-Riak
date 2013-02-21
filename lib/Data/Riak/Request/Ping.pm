@@ -1,6 +1,6 @@
 package Data::Riak::Request::Ping;
 {
-  $Data::Riak::Request::Ping::VERSION = '1.7';
+  $Data::Riak::Request::Ping::VERSION = '1.8';
 }
 
 use Moose;
@@ -18,8 +18,15 @@ sub as_http_request_args {
 
 sub _build_http_exception_classes {
     return {
-        500 => undef,
+        # This is a bit of a hack. Maybe we want to allow predicate functions to
+        # be provided, or at least regexen or some such.
+        (map { ($_ => undef) } 500 .. 599),
     };
+}
+
+sub _mangle_retval {
+    my ($self, $res) = @_;
+    $res->status_code == 200 ? 1 : 0
 }
 
 with 'Data::Riak::Request',
@@ -43,7 +50,7 @@ Data::Riak::Request::Ping
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

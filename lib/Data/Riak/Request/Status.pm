@@ -1,6 +1,6 @@
 package Data::Riak::Request::Status;
 {
-  $Data::Riak::Request::Status::VERSION = '1.7';
+  $Data::Riak::Request::Status::VERSION = '1.8';
 }
 
 use Moose;
@@ -24,6 +24,11 @@ sub _build_http_exception_classes {
     };
 }
 
+sub _mangle_retval {
+    my ($self, $ret) = @_;
+    return $ret->json_value;
+}
+
 with 'Data::Riak::Request',
      'Data::Riak::Request::WithHTTPExceptionHandling';
 
@@ -45,7 +50,7 @@ Data::Riak::Request::Status
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

@@ -1,6 +1,6 @@
 package Data::Riak::Request;
 {
-  $Data::Riak::Request::VERSION = '1.7';
+  $Data::Riak::Request::VERSION = '1.8';
 }
 # ABSTRACT: A request to Riak
 
@@ -22,6 +22,19 @@ has result_class => (
 
 requires qw(as_http_request_args);
 
+has retval_mangler => (
+    is      => 'ro',
+    isa     => 'CodeRef',
+    default => sub {
+        sub { $_[0] };
+    },
+);
+
+sub _mangle_retval {
+    my ($self, $ret) = @_;
+    $self->retval_mangler->($_[1]);
+}
+
 1;
 
 __END__
@@ -34,7 +47,7 @@ Data::Riak::Request - A request to Riak
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 DESCRIPTION
 

@@ -1,6 +1,6 @@
 package Data::Riak::Request::GetObject;
 {
-  $Data::Riak::Request::GetObject::VERSION = '1.7';
+  $Data::Riak::Request::GetObject::VERSION = '1.8';
 }
 
 use Moose;
@@ -9,12 +9,19 @@ use Data::Riak::Exception::ObjectNotFound;
 use Data::Riak::Exception::MultipleSiblingsAvailable;
 use namespace::autoclean;
 
+has accept => (
+    is        => 'ro',
+    isa       => 'Str',
+    predicate => 'has_accept',
+);
+
 sub as_http_request_args {
     my ($self) = @_;
 
     return {
         method => 'GET',
         uri    => sprintf('buckets/%s/keys/%s', $self->bucket_name, $self->key),
+        ($self->has_accept ? (accept => $self->accept) : ()),
     };
 }
 
@@ -46,7 +53,7 @@ Data::Riak::Request::GetObject
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 

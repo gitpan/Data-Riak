@@ -1,6 +1,6 @@
 package Data::Riak::HTTP;
 {
-  $Data::Riak::HTTP::VERSION = '1.7';
+  $Data::Riak::HTTP::VERSION = '1.8';
 }
 # ABSTRACT: An interface to a Riak server, using its HTTP (REST) interface
 
@@ -21,8 +21,6 @@ use Data::Riak::HTTP::Response;
 use Data::Riak::HTTP::ExceptionHandler::Default;
 
 use namespace::autoclean;
-
-with 'Data::Riak::Transport';
 
 
 {
@@ -106,14 +104,15 @@ has user_agent => (
         # - SL
 
         # The Links header Riak returns (esp. for buckets) can get really long,
-        # so here increase the MaxLineLength LWP will accept (default = 8192)
+        # so disable limits LWP puts on the length of response lines
+        # (default = 8192)
         my %opts = @LWP::Protocol::http::EXTRA_SOCK_OPTS;
-        $opts{MaxLineLength} = 65_536;
+        $opts{MaxLineLength} = 0;
         @LWP::Protocol::http::EXTRA_SOCK_OPTS = %opts;
 
         my $ua = LWP::UserAgent->new(
             timeout => $self->timeout,
-            keep_alive => 1
+            keep_alive => 1,
         );
 
         $CONN_CACHE ||= LWP::ConnCache->new;
@@ -123,72 +122,6 @@ has user_agent => (
         $ua;
     }
 );
-
-has client_id => (
-    is      => 'ro',
-    isa     => 'Str',
-    default => sub { sprintf '%s/%s', __PACKAGE__, our $VERSION // 'git' },
-);
-
-has exception_handler => (
-    is      => 'ro',
-    isa     => 'Data::Riak::HTTP::ExceptionHandler',
-    builder => '_build_exception_handler',
-);
-
-sub _build_exception_handler {
-    Data::Riak::HTTP::ExceptionHandler::Default->new;
-}
-
-has protocol => (
-    is      => 'ro',
-    isa     => 'Str',
-    default => 'http',
-);
-
-
-has base_uri => (
-    is      => 'ro',
-    isa     => 'Str',
-    lazy    => 1,
-    builder => '_build_base_uri',
-);
-
-sub _build_base_uri {
-    my $self = shift;
-    return sprintf('%s://%s:%s/', $self->protocol, $self->host, $self->port);
-}
-
-has request_class => (
-    is      => 'ro',
-    isa     => 'ClassName',
-    default => Data::Riak::HTTP::Request::,
-    handles => {
-        _new_request => 'new',
-    },
-);
-
-has request_class_args => (
-    traits  => ['Hash'],
-    isa     => 'HashRef',
-    default => sub { +{} },
-    handles => {
-        request_class_args => 'elements',
-    },
-);
-
-sub BUILD {
-    my ($self) = @_;
-    $self->base_uri;
-}
-
-sub create_request {
-    my ($self, $request) = @_;
-    return $self->_new_request({
-        $self->request_class_args,
-        %{ $request->as_http_request_args },
-    });
-}
 
 
 sub send {
@@ -247,6 +180,8 @@ sub _send {
     return $response;
 }
 
+with 'Data::Riak::Transport::HTTP';
+
 
 __PACKAGE__->meta->make_immutable;
 
@@ -262,7 +197,7 @@ Data::Riak::HTTP - An interface to a Riak server, using its HTTP (REST) interfac
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 ATTRIBUTES
 

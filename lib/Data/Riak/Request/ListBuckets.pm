@@ -1,6 +1,6 @@
 package Data::Riak::Request::ListBuckets;
 {
-  $Data::Riak::Request::ListBuckets::VERSION = '1.7';
+  $Data::Riak::Request::ListBuckets::VERSION = '1.8';
 }
 
 use Moose;
@@ -16,6 +16,11 @@ sub as_http_request_args {
         query  => { buckets => 'true' },
         accept => 'application/json',
     };
+}
+
+sub _mangle_retval {
+    my ($self, $ret) = @_;
+    $ret->json_value->{buckets};
 }
 
 with 'Data::Riak::Request';
@@ -38,7 +43,7 @@ Data::Riak::Request::ListBuckets
 
 =head1 VERSION
 
-version 1.7
+version 1.8
 
 =head1 AUTHORS
 
