@@ -1,6 +1,6 @@
 package Data::Riak::Result::MaybeWithVClock;
 {
-  $Data::Riak::Result::MaybeWithVClock::VERSION = '1.9';
+  $Data::Riak::Result::MaybeWithVClock::VERSION = '2.0';
 }
 # ABSTRACT: Results with vector clock headers
 
@@ -26,7 +26,7 @@ Data::Riak::Result::MaybeWithVClock - Results with vector clock headers
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 ATTRIBUTES
 

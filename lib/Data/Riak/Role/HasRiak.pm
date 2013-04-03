@@ -1,6 +1,6 @@
 package Data::Riak::Role::HasRiak;
 {
-  $Data::Riak::Role::HasRiak::VERSION = '1.9';
+  $Data::Riak::Role::HasRiak::VERSION = '2.0';
 }
 
 use Moose::Role;
@@ -24,7 +24,7 @@ Data::Riak::Role::HasRiak
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

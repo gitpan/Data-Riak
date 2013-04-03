@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::ExceptionHandler;
 {
-  $Data::Riak::HTTP::ExceptionHandler::VERSION = '1.9';
+  $Data::Riak::HTTP::ExceptionHandler::VERSION = '2.0';
 }
 
 use Moose;
@@ -94,7 +94,7 @@ Data::Riak::HTTP::ExceptionHandler
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

@@ -30,7 +30,6 @@ my %WriteMakefileArgs = (
     "AnyEvent::HTTP" => 0,
     "Carp" => 0,
     "Class::Load" => 0,
-    "Data::Riak::Result::WithVClock" => 0,
     "Digest::MD5" => 0,
     "HTTP::Headers" => 0,
     "HTTP::Headers::ActionPack" => "0.05",
@@ -61,7 +60,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "1.9",
+  "VERSION" => "2.0",
   "test" => {
     "TESTS" => "t/*.t t/async/*.t t/buckets/*.t t/http/*.t t/indexes/*.t t/link/*.t t/mapreduce/*.t t/result/*.t"
   }

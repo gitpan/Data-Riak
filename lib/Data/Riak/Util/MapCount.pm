@@ -1,6 +1,6 @@
 package Data::Riak::Util::MapCount;
 {
-  $Data::Riak::Util::MapCount::VERSION = '1.9';
+  $Data::Riak::Util::MapCount::VERSION = '2.0';
 }
 
 use strict;
@@ -40,7 +40,7 @@ Data::Riak::Util::MapCount
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

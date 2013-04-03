@@ -1,6 +1,6 @@
 package Data::Riak::Result::SingleObject;
 {
-  $Data::Riak::Result::SingleObject::VERSION = '1.9';
+  $Data::Riak::Result::SingleObject::VERSION = '2.0';
 }
 # ABSTRACT: Single result containing an object
 
@@ -25,7 +25,7 @@ Data::Riak::Result::SingleObject - Single result containing an object
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 DESCRIPTION
 

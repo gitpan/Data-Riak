@@ -1,6 +1,6 @@
 package Data::Riak::Async::Request;
 {
-  $Data::Riak::Async::Request::VERSION = '1.9';
+  $Data::Riak::Async::Request::VERSION = '2.0';
 }
 
 use Moose::Role;
@@ -30,7 +30,7 @@ Data::Riak::Async::Request
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

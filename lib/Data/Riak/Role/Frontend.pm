@@ -1,6 +1,6 @@
 package Data::Riak::Role::Frontend;
 {
-  $Data::Riak::Role::Frontend::VERSION = '1.9';
+  $Data::Riak::Role::Frontend::VERSION = '2.0';
 }
 
 use Moose::Role;
@@ -122,7 +122,7 @@ Data::Riak::Role::Frontend
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

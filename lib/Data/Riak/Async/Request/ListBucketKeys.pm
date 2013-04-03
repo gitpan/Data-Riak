@@ -1,6 +1,6 @@
 package Data::Riak::Async::Request::ListBucketKeys;
 {
-  $Data::Riak::Async::Request::ListBucketKeys::VERSION = '1.9';
+  $Data::Riak::Async::Request::ListBucketKeys::VERSION = '2.0';
 }
 
 use Moose;
@@ -23,7 +23,7 @@ Data::Riak::Async::Request::ListBucketKeys
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

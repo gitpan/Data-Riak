@@ -1,6 +1,6 @@
 package Data::Riak::Request::Ping;
 {
-  $Data::Riak::Request::Ping::VERSION = '1.9';
+  $Data::Riak::Request::Ping::VERSION = '2.0';
 }
 
 use Moose;
@@ -50,7 +50,7 @@ Data::Riak::Request::Ping
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

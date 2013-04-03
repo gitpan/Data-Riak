@@ -1,6 +1,6 @@
 package Data::Riak::Result::MaybeVClock;
 {
-  $Data::Riak::Result::MaybeVClock::VERSION = '1.9';
+  $Data::Riak::Result::MaybeVClock::VERSION = '2.0';
 }
 # ABSTRACT: Result class for requests returning a vector clock
 
@@ -24,7 +24,7 @@ Data::Riak::Result::MaybeVClock - Result class for requests returning a vector c
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

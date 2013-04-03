@@ -1,6 +1,6 @@
 package Data::Riak::Async::HTTP;
 {
-  $Data::Riak::Async::HTTP::VERSION = '1.9';
+  $Data::Riak::Async::HTTP::VERSION = '2.0';
 }
 
 use Moose;
@@ -149,7 +149,7 @@ Data::Riak::Async::HTTP
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

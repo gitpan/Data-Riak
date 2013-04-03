@@ -1,6 +1,6 @@
 package Data::Riak::Result::Single;
 {
-  $Data::Riak::Result::Single::VERSION = '1.9';
+  $Data::Riak::Result::Single::VERSION = '2.0';
 }
 # ABSTRACT: Results without the need of a ResultSet
 
@@ -20,7 +20,7 @@ Data::Riak::Result::Single - Results without the need of a ResultSet
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 DESCRIPTION
 

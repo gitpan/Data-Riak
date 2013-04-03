@@ -1,6 +1,6 @@
 package Data::Riak::Transport::HTTP;
 {
-  $Data::Riak::Transport::HTTP::VERSION = '1.9';
+  $Data::Riak::Transport::HTTP::VERSION = '2.0';
 }
 
 use Moose::Role;
@@ -88,7 +88,7 @@ Data::Riak::Transport::HTTP
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

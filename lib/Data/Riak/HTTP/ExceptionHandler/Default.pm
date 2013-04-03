@@ -1,6 +1,6 @@
 package Data::Riak::HTTP::ExceptionHandler::Default;
 {
-  $Data::Riak::HTTP::ExceptionHandler::Default::VERSION = '1.9';
+  $Data::Riak::HTTP::ExceptionHandler::Default::VERSION = '2.0';
 }
 
 use Moose;
@@ -32,7 +32,7 @@ Data::Riak::HTTP::ExceptionHandler::Default
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 AUTHORS
 

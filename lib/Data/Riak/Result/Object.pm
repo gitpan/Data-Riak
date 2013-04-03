@@ -1,6 +1,6 @@
 package Data::Riak::Result::Object;
 {
-  $Data::Riak::Result::Object::VERSION = '1.9';
+  $Data::Riak::Result::Object::VERSION = '2.0';
 }
 # ABSTRACT: A result containing a full object
 
@@ -10,7 +10,7 @@ use namespace::autoclean;
 extends 'Data::Riak::Result';
 with 'Data::Riak::Result::WithLocation',
      'Data::Riak::Result::WithLinks',
-     'Data::Riak::Result::WithVClock';
+     'Data::Riak::Result::MaybeWithVClock';
 
 
 has etag => (
@@ -40,7 +40,7 @@ Data::Riak::Result::Object - A result containing a full object
 
 =head1 VERSION
 
-version 1.9
+version 2.0
 
 =head1 DESCRIPTION
 
@@ -53,7 +53,7 @@ roles
 
 =item * L<Data::Riak::Result::WithLinks>
 
-=item * L<Data::Riak::Result::WithVClock>
+=item * L<Data::Riak::Result::MaybeWithVClock>
 
 =back
 
